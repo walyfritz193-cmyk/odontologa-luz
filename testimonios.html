@@ -303,13 +303,16 @@ async function cargarTestimonios() {
         const resp = await fetch(url);
         const data = await resp.json();
 
+        // ⭐ Tu Apps Script devuelve el JSON real dentro de data.content
+        const testimonios = JSON.parse(data.content);
+
         // Ordenar por ID descendente (más recientes primero)
-        data.sort((a, b) => b.id - a.id);
+        testimonios.sort((a, b) => b.id - a.id);
 
         const cont = document.getElementById("listaTestimonios");
         cont.innerHTML = "";
 
-        data.forEach(t => {
+        testimonios.forEach(t => {
             const card = document.createElement("div");
             card.className = "review-card";
             card.innerHTML = `
@@ -336,6 +339,7 @@ async function cargarTestimonios() {
 
 cargarTestimonios();
 </script>
+
 
 </body>
 </html>
