@@ -1,0 +1,316 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog – Clínica Dental</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+    /* ---------------- PANEL ANIMADO ---------------- */
+    .blog-panel {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 420px;
+        height: 100vh;
+        background: rgba(255,255,255,0.85);
+        backdrop-filter: blur(12px);
+        box-shadow: -4px 0 20px rgba(0,0,0,0.15);
+        transition: right 0.45s ease, opacity 0.45s ease;
+        opacity: 0;
+        z-index: 999;
+        padding: 20px;
+        overflow-y: auto;
+    }
+
+    .blog-panel.open {
+        right: 0;
+        opacity: 1;
+    }
+
+    .panel-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    #panel-close {
+        background: #003366;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    /* ---------------- TARJETAS DEL BLOG ---------------- */
+    .blog-categories {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 20px;
+        margin-top: 30px;
+    }
+
+    .blog-card {
+        background:
+            linear-gradient(135deg,
+                rgba(255,255,255,0.75),
+                rgba(255,255,255,0.45)
+            ),
+            url('img/textura/agua1.PNG');
+        background-size: cover;
+        background-position: center;
+        border-radius: 16px;
+        padding: 22px;
+        border: 1px solid rgba(255,255,255,0.6);
+        box-shadow: 0 6px 18px rgba(0,0,0,0.22);
+        transition: 0.3s ease;
+        cursor: pointer;
+    }
+
+    .blog-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 28px rgba(0,0,0,0.32);
+        background:
+            linear-gradient(135deg,
+                rgba(255,255,255,0.9),
+                rgba(255,255,255,0.55)
+            ),
+            url('img/textura/agua1.PNG');
+        background-size: cover;
+    }
+
+    /* ---------------- CASOS CLÍNICOS ---------------- */
+    .casos-container {
+        padding: 10px;
+        animation: fadeIn 0.6s ease;
+    }
+
+    .casos-titulo {
+        font-size: 1.6rem;
+        margin-bottom: 15px;
+        color: #003366;
+        font-weight: 700;
+    }
+
+    .casos-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 18px;
+    }
+
+    .caso-card {
+        background: rgba(255,255,255,0.7);
+        backdrop-filter: blur(10px);
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        cursor: pointer;
+    }
+
+    .caso-card:hover {
+        transform: translateY(-6px) scale(1.02);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .caso-card img {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+    }
+
+    .caso-info {
+        padding: 12px;
+    }
+
+    .caso-info h4 {
+        margin: 0;
+        font-size: 1.1rem;
+        color: #002a5c;
+    }
+
+    .caso-info p {
+        margin: 5px 0;
+        color: #333;
+    }
+
+    .caso-fecha {
+        font-size: 0.85rem;
+        color: #666;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    </style>
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="container">
+        <div class="brand">ODONTOLOGÍA</div>
+
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="servicios.html">Servicios</a>
+            <a href="equipo.html">Equipo</a>
+            <a href="pacientes.html">Pacientes</a>
+            <a href="blog.html">Blog</a>
+            <a href="reservar.html" class="btn-cta">Reservar</a>
+        </nav>
+    </div>
+</header>
+
+<section class="container blog-section">
+
+    <h1 class="blog-title">Blog y Novedades</h1>
+    <p class="blog-subtitle">
+        Explorá nuestros casos clínicos, avances científicos, testimonios y momentos especiales.
+    </p>
+
+    <div class="blog-categories">
+
+        <div class="blog-card" data-target="panel-casos">
+            <h2>Casos clínicos odontológicos</h2>
+            <p>Transformaciones reales de pacientes</p>
+        </div>
+
+        <div class="blog-card" data-target="panel-avances">
+            <h2>Avances científicos</h2>
+            <p>Últimas novedades en odontología</p>
+        </div>
+
+        <div class="blog-card" data-target="panel-testimonios">
+            <h2>Testimonios de pacientes</h2>
+            <p>Experiencias reales</p>
+        </div>
+
+        <div class="blog-card" data-target="panel-recuerdos">
+            <h2>Recuerdos y eventos</h2>
+            <p>Momentos especiales de la clínica</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- PANEL DESPLEGABLE -->
+<div id="blog-panel" class="blog-panel">
+    <div class="panel-header">
+        <h3 id="panel-title"></h3>
+        <button id="panel-close">Cerrar</button>
+    </div>
+
+    <div class="panel-content" id="panel-content"></div>
+</div>
+
+<footer class="site-footer">
+    <div class="container">
+        © 2026 Clínica Dental – Todos los derechos reservados
+    </div>
+</footer>
+
+<script>
+const categories = document.querySelectorAll('.blog-card'); /* ← CORREGIDO */
+
+const panel = document.getElementById('blog-panel');
+const panelTitle = document.getElementById('panel-title');
+const panelContent = document.getElementById('panel-content');
+const closeBtn = document.getElementById('panel-close');
+
+categories.forEach(cat => {
+    cat.addEventListener('click', () => {
+        const target = cat.dataset.target;
+        panelTitle.textContent = cat.querySelector('h2').textContent;
+
+        if (target === "panel-casos") {
+
+            panelContent.innerHTML = `
+                <div class="casos-container">
+                    <h3 class="casos-titulo">Casos clínicos odontológicos</h3>
+
+                    <div class="casos-grid">
+
+                        <div class="caso-card">
+                            <img src="img/casos/rehabilitacion/caso1.jpg" alt="Rehabilitación estética completa">
+                            <div class="caso-info">
+                                <h4>Rehabilitación estética completa</h4>
+                                <p>Carillas + blanqueamiento profesional.</p>
+                                <span class="caso-fecha">2026</span>
+                            </div>
+                        </div>
+
+                        <div class="caso-card">
+                            <img src="img/casos/implantes/caso1.jpg" alt="Implante inmediato">
+                            <div class="caso-info">
+                                <h4>Implante inmediato</h4>
+                                <p>Colocación en una sola sesión.</p>
+                                <span class="caso-fecha">2026</span>
+                            </div>
+                        </div>
+
+                        <div class="caso-card">
+                            <img src="img/casos/ortodoncia/caso3.jpg" alt="Ortodoncia estética">
+                            <div class="caso-info">
+                                <h4>Ortodoncia estética</h4>
+                                <p>Alineadores invisibles.</p>
+                                <span class="caso-fecha">2026</span>
+                            </div>
+                        </div>
+
+                        <div class="caso-card">
+                            <img src="img/casos/nuevo.jpg" alt="Nombre del caso">
+                            <div class="caso-info">
+                                <h4>Nombre del caso</h4>
+                                <p>Descripción breve.</p>
+                                <span class="caso-fecha">2026</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            `;
+
+        } else {
+
+            const data = {
+                "panel-avances": [
+                    { title: "Implantes de superficie activa", desc: "Mejor osteointegración." },
+                    { title: "Escaneo digital 3D", desc: "Diagnóstico más preciso." }
+                ],
+                "panel-testimonios": [
+                    { title: "Mariana", desc: "“Me devolvieron la confianza para sonreír.”" },
+                    { title: "Carlos", desc: "“Atención excelente y resultados increíbles.”" }
+                ],
+                "panel-recuerdos": [
+                    { title: "Congreso internacional", desc: "Estética dental avanzada." },
+                    { title: "Jornada solidaria", desc: "Atención gratuita a la comunidad." }
+                ]
+            };
+
+            panelContent.innerHTML = data[target]
+                .map(item => `
+                    <div class="panel-item">
+                        <h4>${item.title}</h4>
+                        <p>${item.desc}</p>
+                    </div>
+                `)
+                .join('');
+        }
+
+        panel.classList.add('open');
+    });
+});
+
+closeBtn.addEventListener('click', () => {
+    panel.classList.remove('open');
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+<section class="formulario-testimonio">
+  <h2>Dejar un testimonio</h2>
+
+  <form id="formTestimonio" enctype="multipart/form-data">
+
+    <label>Nombre (o inicial):</label>
+    <input type="text" id="nombre" required>
+
+    <label>Testimonio:</label>
+    <textarea id="texto" required></textarea>
+
+    <label>Foto (opcional):</label>
+    <input type="file" id="foto" accept="image/*">
+
+    <label class="permiso">
+      <input type="checkbox" id="permiso" required>
+      Autorizo el uso de mi testimonio y/o foto
+    </label>
+
+    <button type="submit">Enviar testimonio</button>
+  </form>
+
+  <p id="mensaje"></p>
+</section>
