@@ -284,7 +284,7 @@ document.getElementById("formTestimonio").addEventListener("submit", async funct
 
     const payload = { nombre, texto, foto: fotoBase64, fotoTipo, fotoNombre };
 
-    await fetch("https://script.google.com/macros/s/AKfycbyNsfs11LmDsLJ14cMpoVSn82gFJnNcBC5l2vnqhpST2n4kLHx_zSHpxlhqCyGJftU/exec", {
+    await fetch("https://script.google.com/macros/s/AKfycby1ELv6xZdu8EUcw_k_iUbiTdBaKvMkng4FKFtVa5haS9mxyV3dLzdnLAKFsPct_1kP/exec", {
         method: "POST",
         body: JSON.stringify(payload)
     });
@@ -297,7 +297,7 @@ document.getElementById("formTestimonio").addEventListener("submit", async funct
 /* --- Cargar testimonios desde Apps Script (GET) --- */
 async function cargarTestimonios() {
 
-    const url = "https://script.google.com/macros/s/AKfycbyNsfs11LmDsLJ14cMpoVSn82gFJnNcBC5l2vnqhpST2n4kLHx_zSHpxlhqCyGJftU/exec";
+    const url = "https://script.google.com/macros/s/AKfycby1ELv6xZdu8EUcw_k_iUbiTdBaKvMkng4FKFtVa5haS9mxyV3dLzdnLAKFsPct_1kP/exec";
 
     try {
         const resp = await fetch(url);
