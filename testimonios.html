@@ -108,7 +108,8 @@
 </head>
 
 async function cargarTestimonios() {
-    const url = "https://script.google.com/macros/s/AKfycbxQSHfR-RVyblAkstFmCRKeGa7muK-4JPKEVxzlF0Gfkz7RD6_Wv04qUC5JjMxcM4I8/exec";
+    const url = "https://script.google.com/macros/s/AKfycbyH_4-ntq4pF0wNAFj-01-BqNWyw7McJco2eElpf4yToEZjqRaiOogq25APhGTZG6-R/exec";
+
 
     try {
         const resp = await fetch(url);
@@ -284,10 +285,10 @@ document.getElementById("formTestimonio").addEventListener("submit", async funct
 
     const payload = { nombre, texto, foto: fotoBase64, fotoTipo, fotoNombre };
 
-    await fetch("https://script.google.com/macros/s/AKfycbxQSHfR-RVyblAkstFmCRKeGa7muK-4JPKEVxzlF0Gfkz7RD6_Wv04qUC5JjMxcM4I8/exec", {
-        method: "POST",
-        body: JSON.stringify(payload)
-    });
+    await fetch("https://script.google.com/macros/s/AKfycbyH_4-ntq4pF0wNAFj-01-BqNWyw7McJco2eElpf4yToEZjqRaiOogq25APhGTZG6-R/exec", {
+    method: "POST",
+    body: JSON.stringify(payload)
+});
 
     document.getElementById("mensaje").textContent =
       "Gracias por tu testimonio. Será revisado y publicado.";
@@ -297,7 +298,8 @@ document.getElementById("formTestimonio").addEventListener("submit", async funct
 /* --- Cargar testimonios desde Apps Script (GET) --- */
 async function cargarTestimonios() {
 
-    const url = "https://script.google.com/macros/s/AKfycbxQSHfR-RVyblAkstFmCRKeGa7muK-4JPKEVxzlF0Gfkz7RD6_Wv04qUC5JjMxcM4I8/exec";
+    const url = "https://script.google.com/macros/s/AKfycbyH_4-ntq4pF0wNAFj-01-BqNWyw7McJco2eElpf4yToEZjqRaiOogq25APhGTZG6-R/exec";
+
 
     try {
         const resp = await fetch(url);
