@@ -163,7 +163,8 @@
     <h2 class="titulo-seccion">Pacientes 100% satisfechos</h2>
 
     <!-- Contenedor dinámico (vacío al inicio) -->
-    <div id="listaPacientes" class="reviews-grid" style="margin-top:40px;"></div>
+    <div id="testimoniosPacientes" class="reviews-grid" style="margin-top:40px;"></div>
+
 
 </section>
 
@@ -178,74 +179,37 @@
   </div>
 </footer>
 
-<<script>
-/* --- Cargar testimonios aprobados en Pacientes.html --- */
+<script>
 async function cargarTestimoniosPacientes() {
 
     const url = "https://script.google.com/macros/s/AKfycbyH_4-ntq4pF0wNAFj-01-BqNWyw7McJco2eElpf4yToEZjqRaiOogq25APhGTZG6-R/exec";
 
     try {
         const resp = await fetch(url);
-        const data = await resp.json();
+        const testimonios = await resp.json(); // JSON directo
 
-        // Ordenar por ID descendente (más recientes primero)
-        data.sort((a, b) => b.id - a.id);
-
-        const cont = document.getElementById("listaPacientes");
+        const cont = document.getElementById("testimoniosPacientes");
         cont.innerHTML = "";
 
-        data.forEach(t => {
+        testimonios.forEach(t => {
             const card = document.createElement("div");
             card.className = "review-card";
-            
-            // 🔧 CONVERTIR FOTO AL FORMATO CORRECTO
-            let fotoUrl = t.foto || "";
-            
-            // Si es Base64, convertir a Blob URL
-            if (fotoUrl.startsWith("data:")) {
-                // Ya está en formato Base64, usarlo directamente
-                fotoUrl = fotoUrl;
-            } 
-            // Si es un link de Google Drive, extraer el ID y formatearlo
-            else if (fotoUrl.includes('drive.google.com')) {
-                const match = fotoUrl.match(/\/d\/([a-zA-Z0-9-_]+)/);
-                if (match && match[1]) {
-                    fotoUrl = `https://drive.google.com/uc?id=${match[1]}`;
-                }
-            }
-            // Si es un URL válido, usarlo
-            else if (fotoUrl.startsWith('http')) {
-                fotoUrl = fotoUrl;
-            }
-            
-            const imgTag = fotoUrl 
-                ? `<img src="${fotoUrl}" alt="Foto de ${t.nombre}" class="review-photo" onerror="this.style.display='none'">`
-                : "";
-            
             card.innerHTML = `
-                ${imgTag}
                 <div class="review-stars">★★★★★</div>
-                <p class="review-text">"${t.texto}"</p>
+                <p class="review-text">“${t.texto}”</p>
                 <h4 class="review-name">${t.nombre}</h4>
             `;
             cont.appendChild(card);
         });
 
-        /* --- Animación premium --- */
-        const cards = document.querySelectorAll(".review-card");
-        cards.forEach((card, i) => {
-            setTimeout(() => {
-                card.classList.add("visible");
-            }, i * 120);
-        });
-
     } catch (e) {
-        console.error("Error cargando testimonios:", e);
+        console.log("Error cargando testimonios en pacientes.html", e);
     }
 }
 
 cargarTestimoniosPacientes();
 </script>
+
 
 
 </body>
