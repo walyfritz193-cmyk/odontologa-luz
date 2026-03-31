@@ -1,235 +1,331 @@
 <!DOCTYPE html>
 
-<html lang="es"><head>
+<html class="scroll-smooth" lang="es"><head>
 <meta charset="utf-8"/>
-<meta content="width=device-width,initial-scale=1" name="viewport"/>
-<title>Pacientes — Primeras visitas · ODONTOLOGA: Luz Micaela Rodriguez</title>
-<meta content="Información para pacientes: qué esperar en la primera visita, formularios, seguros y financiación. Odontologos para todos, San Miguel de Tucumán." name="description"/>
-<link href="favicon.svg" rel="icon"/>
-<link href="styles.css" rel="stylesheet"/>
-<style>
-    .pacientes-reviews {
-        text-align: center;
-        padding: 60px 20px;
-        margin-top: 50px;
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dejar un Testimonio - Ethereal Clinic</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "background": "#f7f9fb",
+              "on-tertiary-fixed-variant": "#674d00",
+              "secondary-fixed-dim": "#8ae7b9",
+              "tertiary-container": "#f9cc61",
+              "tertiary": "#795a00",
+              "on-tertiary": "#fff8f0",
+              "secondary-fixed": "#98f5c7",
+              "secondary": "#006d4a",
+              "on-primary": "#f6f9ff",
+              "on-secondary": "#e6ffee",
+              "error": "#ac3434",
+              "primary": "#00649a",
+              "surface-tint": "#00649a",
+              "surface-container-high": "#e3e9ec",
+              "surface-container-highest": "#dde3e7",
+              "primary-dim": "#005787",
+              "on-tertiary-container": "#5b4400",
+              "inverse-on-surface": "#9a9d9f",
+              "tertiary-dim": "#6a4f00",
+              "on-tertiary-fixed": "#443100",
+              "tertiary-fixed": "#f9cc61",
+              "surface-variant": "#dde3e7",
+              "secondary-container": "#98f5c7",
+              "on-secondary-fixed": "#004930",
+              "primary-fixed": "#88c7ff",
+              "surface-container": "#eaeef1",
+              "secondary-dim": "#005f40",
+              "on-surface": "#2d3337",
+              "error-container": "#f56965",
+              "surface": "#f7f9fb",
+              "primary-fixed-dim": "#67bafd",
+              "on-primary-fixed-variant": "#004972",
+              "on-primary-fixed": "#002a45",
+              "error-dim": "#70030f",
+              "outline": "#757c7f",
+              "inverse-surface": "#0b0f10",
+              "on-error-container": "#65000b",
+              "on-primary-container": "#004064",
+              "surface-bright": "#f7f9fb",
+              "tertiary-fixed-dim": "#eabe55",
+              "on-background": "#2d3337",
+              "surface-container-low": "#f1f4f6",
+              "on-secondary-fixed-variant": "#006947",
+              "inverse-primary": "#67bafd",
+              "on-secondary-container": "#005e3f",
+              "on-surface-variant": "#596063",
+              "outline-variant": "#acb3b7",
+              "surface-container-lowest": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Be Vietnam Pro"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24
     }
-
-    .reviews-title {
-        font-size: 2rem;
-        margin-bottom: 30px;
-        color: #003366;
-        font-weight: 700;
+.glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px)
     }
-
-    .reviews-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 28px;
-    }
-
-    .review-card {
-        position: relative;
-        background:
-            linear-gradient(135deg,
-                rgba(255,255,255,0.55),
-                rgba(255,255,255,0.25)
-            ),
-            url('img/texturas/agua1.png');
-        background-size: 180%;
-        background-position: center;
-
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
-
-        border: 1.5px solid rgba(255,255,255,0.55);
-        border-radius: 20px;
-
-        padding: 26px 20px;
-        box-shadow: 0 10px 26px rgba(0,0,0,0.18);
-        transition: 0.35s ease;
-        overflow: hidden;
-        text-align: center;
-    }
-
-    .review-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 166px 36px rgba(0,0,0,0.28);
-        background-size: 200%;
-    }
-
-    .review-photo {
-        width: 100px;
-        height: 100px;
-        object-fit: cover;
-        border-radius: 50%;
-        border: 2px solid white;
-        margin: 0 auto 12px auto;
-        background-color: #f0f0f0;
-        display: block;
-    }
-
-    .review-stars {
-        font-size: 1.2rem;
-        color: #ffcc00;
-        margin-bottom: 10px;
-    }
-
-    .review-text {
-        font-size: 0.95rem;
-        color: #003366;
-        margin-bottom: 12px;
-        line-height: 1.4;
-        font-style: italic;
-    }
-
-    .review-name {
-        font-weight: 700;
-        color: #002a5c;
-        margin-top: 8px;
-    }
-
-    .review-card::after {
-        content: "";
-        position: absolute;
-        top: -120%;
-        left: -120%;
-        width: 250%;
-        height: 250%;
-        background: linear-gradient(
-            135deg,
-            rgba(255,255,255,0) 40%,
-            rgba(255,255,255,0.35) 50%,
-            rgba(255,255,255,0) 60%
-        );
-        transform: rotate(15deg);
-        opacity: 0;
-        transition: opacity 0.4s ease;
-        pointer-events: none;
-    }
-
-    .review-card:hover::after {
-        opacity: 1;
-        animation: shineMove 1.2s ease forwards;
-    }
-
-    @keyframes shineMove {
-        from { transform: translateX(-50%) translateY(-50%) rotate(15deg); }
-        to   { transform: translateX(50%) translateY(50%) rotate(15deg); }
-    }
-  </style>
+.water-bg {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuBT07ku_PbR6-gYSuSKqMe81u7RfsdaMWjWXPfJi-bsntgkkJn9rTfgqVr5uGfkt-nVpFCJx2ITOGNqVgWHJ2qptlLqlCia91rlZuwDR-EdL0hnJ3Lsv_nZeZH40aNh8qyq0cIUBzlQ5LctsVfjZlF-8y50jZ5oCMk06g7JcSCX5X9uvktRmXJyKBq2Ao4hXqkIK6aotgemxPEPK1_XR53WA-DE15JpMkNOITsRdf1E4iTJqyzkgpPIwitUHa1l8D-A-dPwIqvSvMKH);
+    background-size: cover;
+    background-attachment: fixed
+    }</style>
 </head>
-<body>
-<header class="site-header">
-<div class="container">
-<div class="brand">ODONTOLOGA: Luz Micaela Rodriguez</div>
-<nav>
-<a href="index.html">Inicio</a>
-<a href="servicios.html">Servicios</a>
-<a href="equipo.html">Equipo</a>
-<a href="pacientes.html">Pacientes</a>
-<a href="blog.html">Blog</a>
+<body class="bg-surface font-body text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-xl shadow-xl shadow-slate-200/20">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-8 py-4">
+<span class="text-2xl font-bold bg-gradient-to-br from-teal-600 to-blue-500 bg-clip-text text-transparent font-headline">Ethereal Clinic</span>
+<div class="hidden md:flex items-center space-x-8 font-label text-sm font-semibold tracking-tight">
+<a class="text-slate-600 hover:text-teal-500 transition-colors duration-300" href="#">Inicio</a>
+<a class="text-slate-600 hover:text-teal-500 transition-colors duration-300" href="#">Servicios</a>
+<a class="text-slate-600 hover:text-teal-500 transition-colors duration-300" href="#">Equipo</a>
+<a class="text-teal-600 border-b-2 border-teal-500 pb-1" href="#">Pacientes</a>
+<a class="text-slate-600 hover:text-teal-500 transition-colors duration-300" href="#">Contacto</a>
+<a class="text-slate-600 hover:text-teal-500 transition-colors duration-300" href="#">Blog</a>
+</div>
+<button class="bg-gradient-to-br from-primary to-primary-dim text-on-primary px-6 py-2 rounded-full font-label font-bold hover:scale-105 active:scale-95 transition-all shadow-lg shadow-primary/20">
+                Reservar
+            </button>
+</div>
+<div class="bg-slate-100/50 h-px"></div>
 </nav>
-<a class="btn-cta" href="contacto.html#reserva">Reservar</a>
+<!-- Hero / Header Section -->
+<header class="relative pt-32 pb-20 px-6 water-bg overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-b from-surface/20 via-surface/60 to-surface"></div>
+<div class="relative max-w-4xl mx-auto text-center">
+<h1 class="font-headline text-5xl md:text-6xl font-extrabold text-on-surface tracking-tight mb-6">
+                Dejar un <span class="text-primary">Testimonio</span>
+</h1>
+<p class="text-on-surface-variant text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+                Tu sonrisa es nuestra mayor recompensa. Comparte tu experiencia con nosotros y ayuda a otros pacientes a encontrar la confianza que buscan.
+            </p>
 </div>
 </header>
-<main class="container">
-<h1>Pacientes / Primeras visitas</h1>
-<p>En tu primera cita realizamos evaluación completa, radiografías si es necesario y entregamos un plan de tratamiento claro.</p>
-<ul>
-<li>Duración aproximada: 45–60 minutos</li>
-<li>Trae tu historial médico y lista de medicamentos</li>
-<li>Aceptamos planes y ofrecemos financiación</li>
-</ul>
-<h2>Formularios</h2>
-<p>Puedes solicitar el formularios en recepción o dejar tu testimono aqui. Presiona el boton de abajo. </p>
-<div style="text-align:center; margin-top:40px;">
-<a class="btn-cta" href="testimonios.html#formulario" style="
-      padding:14px 26px;
-      background:#0066cc;
-      color:white;
-      border-radius:10px;
-      text-decoration:none;
-      font-weight:600;
-      box-shadow:0 4px 12px rgba(0,0,0,0.2);
-  ">
-    Dejar un testimonio
-  </a>
+<!-- Main Content: Form Section -->
+<main class="relative z-10 px-6 -mt-12 pb-32">
+<div class="max-w-4xl mx-auto">
+<!-- Form Card -->
+<div class="glass-card rounded-lg p-8 md:p-12 shadow-[0_20px_40px_rgba(45,51,55,0.06)] border border-white/40">
+<form class="grid grid-cols-1 md:grid-cols-2 gap-8" id="testimonyForm">
+<!-- Full Name -->
+<div class="flex flex-col gap-2">
+<label class="font-label font-bold text-sm uppercase tracking-wider text-on-surface-variant" for="fullName">Nombre Completo</label>
+<input class="bg-surface-container-highest border-none rounded-md px-6 py-4 focus:ring-2 focus:ring-primary/20 transition-all font-body text-on-surface placeholder:text-outline-variant" id="fullName" name="fullName" placeholder="Ej. Juan Pérez" required="" type="text"/>
 </div>
-<section class="pacientes-section" style="margin-top:50px;">
-<h2 class="titulo-seccion">Pacientes 100% satisfechos</h2>
-<!-- Contenedor dinámico -->
-<div class="reviews-grid" id="testimoniosPacientes" style="margin-top:40px;">
-<p>Cargando testimonios...</p>
+<!-- Photo Link -->
+<div class="flex flex-col gap-2">
+<label class="font-label font-bold text-sm uppercase tracking-wider text-on-surface-variant" for="photoUrl">Enlace a tu Foto (Opcional)</label>
+<input class="bg-surface-container-highest border-none rounded-md px-6 py-4 focus:ring-2 focus:ring-primary/20 transition-all font-body text-on-surface placeholder:text-outline-variant" id="photoUrl" name="photoUrl" placeholder="https://ejemplo.com/tu-foto.jpg" type="url"/>
+</div>
+<!-- Testimony Text -->
+<div class="flex flex-col gap-2 md:col-span-2">
+<label class="font-label font-bold text-sm uppercase tracking-wider text-on-surface-variant" for="testimony">Tu Testimonio</label>
+<textarea class="bg-surface-container-highest border-none rounded-md px-6 py-4 focus:ring-2 focus:ring-primary/20 transition-all font-body text-on-surface placeholder:text-outline-variant resize-none" id="testimony" name="testimony" placeholder="Cuéntanos cómo fue tu paso por Ethereal Clinic..." required="" rows="5"></textarea>
+</div>
+<!-- Approval Checkbox -->
+<div class="md:col-span-2 flex items-start gap-4 p-4 rounded-lg bg-secondary-container/20">
+<input class="mt-1 w-5 h-5 rounded text-secondary focus:ring-secondary border-outline-variant bg-surface-container-lowest" id="approval" name="approval" required="" type="checkbox"/>
+<label class="text-sm text-on-surface-variant leading-relaxed" for="approval">
+                            Doy mi consentimiento para que Ethereal Clinic publique mi nombre, testimonio y fotografía en su sitio web y materiales de marketing para ayudar a otros pacientes.
+                        </label>
+</div>
+<!-- Submit Button -->
+<div class="md:col-span-2 flex justify-center pt-4">
+<button class="group relative bg-gradient-to-br from-primary to-primary-dim text-on-primary px-12 py-4 rounded-full font-headline font-bold text-lg hover:scale-105 active:scale-95 transition-all shadow-xl shadow-primary/30 flex items-center gap-3" id="submitBtn" type="submit">
+<span>Enviar Testimonio</span>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">send</span>
+</button>
+</div>
+</form>
+</div>
+<!-- Recent Testimonies Section -->
+<section class="mt-24">
+<div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+<div>
+<h2 class="font-headline text-3xl font-extrabold text-on-surface">Voces de nuestra comunidad</h2>
+<div class="h-1.5 w-20 bg-secondary rounded-full mt-3"></div>
+</div>
+<p class="text-on-surface-variant font-medium">Recientemente compartidos</p>
+</div>
+<!-- Testimonies Grid (Preview) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="testimoniesGrid">
+<!-- Cards will be injected here via script logic or static placeholder -->
+<!-- Static Placeholder 1 -->
+<div class="bg-surface-container-lowest rounded-lg p-8 shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-surface-container">
+<div class="flex items-center gap-4 mb-6">
+<div class="w-14 h-14 rounded-full bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="portrait of a smiling woman with healthy teeth in a professional setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEcbzBra9crzsGQwnnXM5FDuddgMX1iuWqj2QhBn34R46_OYto4jUIPSf9BVAdb8bmLyOGi0IwzWFByvFNT97-yKKyDTkpH9jlS-jdeqwk9idiUEMLucARqvZU7L58CVdS78WzbkK2JOr8JDAvw-anFnYgPoOmh24WuvvR8HL_eWLDKpGOr5pbyXBam-Fi1qcyH5DG0JQmj5Mj5Cc0v865zXLUsg0hAlZI_85GXO9mmKCiVOmCHnO7A7Tk2m3XIIRnXfdOMc1wl2jJ"/>
+</div>
+<div>
+<h4 class="font-headline font-bold text-on-surface">Marta Rodriguez</h4>
+<div class="flex text-tertiary-fixed-dim">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+</div>
+<p class="text-on-surface-variant italic leading-relaxed">
+                            "La atención fue impecable desde el primer momento. El equipo de Ethereal Clinic me hizo sentir cómoda y segura durante todo mi tratamiento de ortodoncia invisible."
+                        </p>
+</div>
+<!-- Static Placeholder 2 -->
+<div class="bg-surface-container-lowest rounded-lg p-8 shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-surface-container">
+<div class="flex items-center gap-4 mb-6">
+<div class="w-14 h-14 rounded-full bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="portrait of a happy middle-aged man with a confident smile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4ReCwP4vDhDwE7mxtTh5BjdDu_PPfr5wXWkq0IHa5DIfFJacXEtIikJFkd_kWgpZtTKtNbnNTaIQXlNmLMYZ2mdG9ghW-a6u9t4_ZF_Z0Wnbm1Ri4LJMsKKQaaeLj5Q3wZYUt7BLTmT8c3eux9RDOfcADTbPNsRgtH8tOLJPNs63wa-b6IbLpSI6IN7ywqrgw3zJ949ac0HNjUBoB83ZnmKXZcw2JUPWAY8qcN29wxOR8YECyzQCvGWdhpBR7M9eLkcwN809H9mSW"/>
+</div>
+<div>
+<h4 class="font-headline font-bold text-on-surface">Carlos Méndez</h4>
+<div class="flex text-tertiary-fixed-dim">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+</div>
+<p class="text-on-surface-variant italic leading-relaxed">
+                            "Buscaba una clínica moderna en Tucumán y encontré mucho más. Tecnología de punta y una calidez humana que ya no se ve en otros centros médicos."
+                        </p>
+</div>
+<!-- Static Placeholder 3 -->
+<div class="bg-surface-container-lowest rounded-lg p-8 shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-surface-container">
+<div class="flex items-center gap-4 mb-6">
+<div class="w-14 h-14 rounded-full bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="close up of a young man smiling in a bright clinic interior" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCny3ZVu_W8vtho2oh8_K1TjBfHDawizeIxpXKqMLq2XlKiSmGZ1VtrdgYdb7uSZ3WJ8UMqQxGwUfegsWL7Tg8E1ALso79RLGLpKGBbn5WTxgYV2x5ZmiSy6zDjT1_jX6kBidmDl3s0MAqG33RZIftlgWpgsm39ZKgf-PhcRsQfHspT2VhO6L9OA8T_axq_gWcOxeevlAvIz7jJqXSXAEm74W_7LtznEh9Kg-j0cZaBYn3iJzjndC6QefCavfNSM8ykOtkVv0x3m6Mr"/>
+</div>
+<div>
+<h4 class="font-headline font-bold text-on-surface">Sofía Paz</h4>
+<div class="flex text-tertiary-fixed-dim">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+</div>
+<p class="text-on-surface-variant italic leading-relaxed">
+                            "Gracias a todo el equipo por devolverme las ganas de sonreír. El proceso de implantes fue totalmente indoloro y el resultado es increíblemente natural."
+                        </p>
+</div>
 </div>
 </section>
-</main>
-<script>
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzohLBnlfxihfuD0-a6p91oFTEqeyv46FnL_X3FujUSdk8j_u7kDZf-gZLTzTN65vla/exec";
-
- async function cargarTestimonios() {
-  const container = document.getElementById('testimoniosPacientes');
-  if (!container) return;
-
-  try {
-    const response = await fetch(SCRIPT_URL);
-    const textoRecibido = await response.text(); 
-    const datos = JSON.parse(textoRecibido);
-
-    let lista = Array.isArray(datos) ? datos : (datos.data || []);
-
-    // 1. Filtrar aprobados, ordenar por fecha descendente y limitar a 4
-    lista = lista
-      .filter(t => t.aprobado === true || t.aprobado === "TRUE" || t.aprobado === "true")
-      .sort((a, b) => new Date(b.fecha) - new Date(a.fecha))
-      .slice(0, 4);
-
-    container.innerHTML = ''; 
-
-    if (lista.length === 0) {
-      container.innerHTML = '<p>No hay testimonios disponibles por el momento.</p>';
-      return;
-    }
-
-    lista.forEach(t => {
-      // Extraer ID de Drive para la foto
-      let idFoto = "";
-      if (t.foto && t.foto.includes("id=")) {
-          idFoto = t.foto.split("id=")[1].split("&")[0];
-      } else if (t.foto && t.foto.includes("/d/")) {
-          idFoto = t.foto.split("/d/")[1].split("/")[0];
-      }
-
-      const urlFinal = idFoto 
-        ? `https://lh3.googleusercontent.com/d/${idFoto}` 
-        : "https://www.w3schools.com/howto/img_avatar.png";
-
-      const card = document.createElement('div');
-      card.className = 'review-card';
-
-      card.innerHTML = `
-        <img src="${urlFinal}" alt="Paciente" class="review-photo">
-        <div class="review-stars">★★★★★</div>
-        <p class="review-text">"${t.texto || ''}"</p>
-        <div class="review-name">${t.nombre || 'Paciente'}</div>
-        <div style="margin-top: 10px; font-size: 0.8rem; color: #888;">
-          ${t.fecha ? new Date(t.fecha).toLocaleDateString() : ''}
-        </div>
-      `;
-      container.appendChild(card);
-    });
-
-  } catch (error) {
-    console.error("Error cargando datos:", error);
-    container.innerHTML = "<p>Error al cargar los testimonios. Por favor revisa la conexión.</p>";
-  }
-}
-
-  window.onload = cargarTestimonios;
-</script>
-<footer class="site-footer">
-<div class="container">
-<div>© ODONTOLOGA: Luz Micaela Rodriguez</div>
-<div class="muted">+54 93816779663 · luzmicaela789@gmail.com</div>
 </div>
-</footer>
-</body></html>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-white/80 backdrop-blur-2xl shadow-[0_-10px_40px_rgba(0,0,0,0.08)] z-50 rounded-t-[2.5rem]">
+<a class="flex flex-col items-center justify-center text-slate-400 w-12 h-12" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label text-[10px] font-bold uppercase tracking-wider">Inicio</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 w-12 h-12" href="#">
+<span class="material-symbols-outlined" data-icon="medical_services">medical_services</span>
+<span class="font-label text-[10px] font-bold uppercase tracking-wider">Servicios</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-teal-50 text-teal-700 rounded-full w-14 h-14 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="person" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label text-[10px] font-bold uppercase tracking-wider">Pacientes</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 w-12 h-12" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-label text-[10px] font-bold uppercase tracking-wider">Turnos</span>
+</a>
+</nav>
+<!-- Success Modal (Hidden by default) -->
+<div class="fixed inset-0 z-[100] hidden items-center justify-center px-6" id="successModal">
+<div class="absolute inset-0 bg-on-surface/40 backdrop-blur-sm"></div>
+<div class="relative glass-card rounded-lg p-10 max-w-md w-full text-center shadow-2xl border border-white/50">
+<div class="w-20 h-20 bg-secondary-container text-secondary rounded-full flex items-center justify-center mx-auto mb-6">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'wght' 700;">check_circle</span>
+</div>
+<h3 class="font-headline text-2xl font-bold text-on-surface mb-3">¡Testimonio Recibido!</h3>
+<p class="text-on-surface-variant mb-8">Gracias por compartir tu experiencia. Tu testimonio será revisado y publicado pronto.</p>
+<button class="w-full bg-primary text-on-primary py-4 rounded-full font-bold shadow-lg shadow-primary/20" onclick="document.getElementById('successModal').classList.add('hidden')">
+                Entendido
+            </button>
+</div>
+</div>
+<script>
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwP31-FoCk6qnL81FNetHz9jD08qCh1Xl-m-k1lhZsR9ioa6iCGVO9KT2syIxdo-TKr/exec';
+
+  // Handle Form Submission
+  document.getElementById('testimonyForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const submitBtn = document.getElementById('submitBtn');
+    const originalBtnContent = submitBtn.innerHTML;
+    
+    // Loading state
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span>Enviando...</span><span class="material-symbols-outlined animate-spin">sync</span>';
+
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const response = await fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      // Show success modal
+      document.getElementById('successModal').classList.remove('hidden');
+      document.getElementById('successModal').classList.add('flex');
+      e.target.reset();
+    } catch (error) {
+      console.error('Error submitting testimony:', error);
+      alert('Hubo un error al enviar tu testimonio. Por favor intenta de nuevo.');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalBtnContent;
+    }
+  });
+
+  // Function to fetch and display testimonials
+  async function fetchTestimonials() {
+    try {
+      const response = await fetch(SCRIPT_URL);
+      const data = await response.json();
+      
+      if (data && data.length > 0) {
+        const grid = document.getElementById('testimoniesGrid');
+        // Clear existing static placeholders if real data is found
+        // grid.innerHTML = ''; 
+        
+        // Logic to append or replace would go here based on data structure
+        console.log('Testimonials loaded:', data);
+      }
+    } catch (error) {
+      console.error('Error fetching testimonials:', error);
+    }
+  }
+
+  // Initialize fetching on load
+  // fetchTestimonials(); 
+</script></body></html>

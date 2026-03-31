@@ -6,7 +6,7 @@
 <title>Pacientes — Primeras visitas · ODONTOLOGA: Luz Micaela Rodriguez</title>
 <meta content="Información para pacientes: qué esperar en la primera visita, formularios, seguros y financiación. Odontologos para todos, San Miguel de Tucumán." name="description"/>
 <!-- Material Symbols for icons -->
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <style>
         :root {
             --primary: #003366;
@@ -314,7 +314,7 @@
 </section>
 </main>
 <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzohLBnlfxihfuD0-a6p91oFTEqeyv46FnL_X3FujUSdk8j_u7kDZf-gZLTzTN65vla/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwP31-FoCk6qnL81FNetHz9jD08qCh1Xl-m-k1lhZsR9ioa6iCGVO9KT2syIxdo-TKr/exec";
 
     const FALLBACK_DATA = [
         { nombre: "María Garcia", texto: "Excelente atención, muy profesional y delicada. Me sentí muy cómoda.", fecha: "2026-03-30T10:00:00Z", foto: "" },
@@ -353,7 +353,7 @@
             let photoHtml = '';
             if (idFoto) {
                 const urlFinal = `https://lh3.googleusercontent.com/d/${idFoto}`;
-                photoHtml = `<img src="${urlFinal}" alt="Paciente" class="review-photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">`;
+                photoHtml = `<img alt="Paciente" class="review-photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" src="${urlFinal}"/>`;
                 photoHtml += `<div class="review-icon" style="display:none"><span class="material-symbols-outlined">account_circle</span></div>`;
             } else {
                 photoHtml = `<div class="review-icon"><span class="material-symbols-outlined">account_circle</span></div>`;
@@ -364,9 +364,9 @@
             card.innerHTML = `
                 ${photoHtml}
                 <div class="review-stars">★★★★★</div>
-                <p class="review-text">"${t.texto || 'Excelente atención y calidez profesional.'}"</p>
-                <div class="review-name">${t.nombre || 'Paciente Satisfecho'}</div>
-                <div class="review-date">${formattedDate}</div>
+<p class="review-text">"${t.texto || 'Excelente atención y calidez profesional.'}"</p>
+<div class="review-name">${t.nombre || 'Paciente Satisfecho'}</div>
+<div class="review-date">${formattedDate}</div>
             `;
             container.appendChild(card);
         });
@@ -380,7 +380,10 @@
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), 5000);
             
-            const response = await fetch(SCRIPT_URL, { signal: controller.signal });
+            const response = await fetch(SCRIPT_URL, {
+                mode: 'cors',
+                signal: controller.signal 
+            });
             clearTimeout(timeoutId);
 
             if (!response.ok) throw new Error('Network response error');
