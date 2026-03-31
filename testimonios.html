@@ -1,235 +1,210 @@
 <!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Testimonios · ODONTOLOGA: Luz Micaela Rodriguez</title>
+<link rel="stylesheet" href="styles.css">
 
-<html lang="es"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width,initial-scale=1" name="viewport"/>
-<title>Pacientes — Primeras visitas · ODONTOLOGA: Luz Micaela Rodriguez</title>
-<meta content="Información para pacientes: qué esperar en la primera visita, formularios, seguros y financiación. Odontologos para todos, San Miguel de Tucumán." name="description"/>
-<link href="favicon.svg" rel="icon"/>
-<link href="styles.css" rel="stylesheet"/>
 <style>
-    .pacientes-reviews {
-        text-align: center;
-        padding: 60px 20px;
-        margin-top: 50px;
-    }
+/* --- ESTILO DE TARJETAS (Actualizado con textura) --- */
+.review-card {
+    position: relative;
+    /* Aplicamos la textura de agua igual que en pacientes.html */
+    background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url('img/texturas/agua1.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 
-    .reviews-title {
-        font-size: 2rem;
-        margin-bottom: 30px;
-        color: #003366;
-        font-weight: 700;
-    }
-
-    .reviews-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 28px;
-    }
-
-    .review-card {
-        position: relative;
-        background:
-            linear-gradient(135deg,
-                rgba(255,255,255,0.55),
-                rgba(255,255,255,0.25)
-            ),
-            url('img/texturas/agua1.png');
-        background-size: 180%;
-        background-position: center;
-
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
-
-        border: 1.5px solid rgba(255,255,255,0.55);
-        border-radius: 20px;
-
-        padding: 26px 20px;
-        box-shadow: 0 10px 26px rgba(0,0,0,0.18);
-        transition: 0.35s ease;
-        overflow: hidden;
-        text-align: center;
-    }
-
-    .review-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 166px 36px rgba(0,0,0,0.28);
-        background-size: 200%;
-    }
-
-    .review-photo {
-        width: 100px;
-        height: 100px;
-        object-fit: cover;
-        border-radius: 50%;
-        border: 2px solid white;
-        margin: 0 auto 12px auto;
-        background-color: #f0f0f0;
-        display: block;
-    }
-
-    .review-stars {
-        font-size: 1.2rem;
-        color: #ffcc00;
-        margin-bottom: 10px;
-    }
-
-    .review-text {
-        font-size: 0.95rem;
-        color: #003366;
-        margin-bottom: 12px;
-        line-height: 1.4;
-        font-style: italic;
-    }
-
-    .review-name {
-        font-weight: 700;
-        color: #002a5c;
-        margin-top: 8px;
-    }
-
-    .review-card::after {
-        content: "";
-        position: absolute;
-        top: -120%;
-        left: -120%;
-        width: 250%;
-        height: 250%;
-        background: linear-gradient(
-            135deg,
-            rgba(255,255,255,0) 40%,
-            rgba(255,255,255,0.35) 50%,
-            rgba(255,255,255,0) 60%
-        );
-        transform: rotate(15deg);
-        opacity: 0;
-        transition: opacity 0.4s ease;
-        pointer-events: none;
-    }
-
-    .review-card:hover::after {
-        opacity: 1;
-        animation: shineMove 1.2s ease forwards;
-    }
-
-    @keyframes shineMove {
-        from { transform: translateX(-50%) translateY(-50%) rotate(15deg); }
-        to   { transform: translateX(50%) translateY(50%) rotate(15deg); }
-    }
-  </style>
-</head>
-<body>
-<header class="site-header">
-<div class="container">
-<div class="brand">ODONTOLOGA: Luz Micaela Rodriguez</div>
-<nav>
-<a href="index.html">Inicio</a>
-<a href="servicios.html">Servicios</a>
-<a href="equipo.html">Equipo</a>
-<a href="pacientes.html">Pacientes</a>
-<a href="blog.html">Blog</a>
-</nav>
-<a class="btn-cta" href="contacto.html#reserva">Reservar</a>
-</div>
-</header>
-<main class="container">
-<h1>Pacientes / Primeras visitas</h1>
-<p>En tu primera cita realizamos evaluación completa, radiografías si es necesario y entregamos un plan de tratamiento claro.</p>
-<ul>
-<li>Duración aproximada: 45–60 minutos</li>
-<li>Trae tu historial médico y lista de medicamentos</li>
-<li>Aceptamos planes y ofrecemos financiación</li>
-</ul>
-<h2>Formularios</h2>
-<p>Puedes solicitar el formularios en recepción o dejar tu testimono aqui. Presiona el boton de abajo. </p>
-<div style="text-align:center; margin-top:40px;">
-<a class="btn-cta" href="testimonios.html#formulario" style="
-      padding:14px 26px;
-      background:#0066cc;
-      color:white;
-      border-radius:10px;
-      text-decoration:none;
-      font-weight:600;
-      box-shadow:0 4px 12px rgba(0,0,0,0.2);
-  ">
-    Dejar un testimonio
-  </a>
-</div>
-<section class="pacientes-section" style="margin-top:50px;">
-<h2 class="titulo-seccion">Pacientes 100% satisfechos</h2>
-<!-- Contenedor dinámico -->
-<div class="reviews-grid" id="testimoniosPacientes" style="margin-top:40px;">
-<p>Cargando testimonios...</p>
-</div>
-</section>
-</main>
-<script>
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzohLBnlfxihfuD0-a6p91oFTEqeyv46FnL_X3FujUSdk8j_u7kDZf-gZLTzTN65vla/exec";
-
- async function cargarTestimonios() {
-  const container = document.getElementById('testimoniosPacientes');
-  if (!container) return;
-
-  try {
-    const response = await fetch(SCRIPT_URL);
-    const textoRecibido = await response.text(); 
-    const datos = JSON.parse(textoRecibido);
-
-    let lista = Array.isArray(datos) ? datos : (datos.data || []);
-
-    // 1. Filtrar aprobados, ordenar por fecha descendente y limitar a 4
-    lista = lista
-      .filter(t => t.aprobado === true || t.aprobado === "TRUE" || t.aprobado === "true")
-      .sort((a, b) => new Date(b.fecha) - new Date(a.fecha))
-      .slice(0, 4);
-
-    container.innerHTML = ''; 
-
-    if (lista.length === 0) {
-      container.innerHTML = '<p>No hay testimonios disponibles por el momento.</p>';
-      return;
-    }
-
-    lista.forEach(t => {
-      // Extraer ID de Drive para la foto
-      let idFoto = "";
-      if (t.foto && t.foto.includes("id=")) {
-          idFoto = t.foto.split("id=")[1].split("&")[0];
-      } else if (t.foto && t.foto.includes("/d/")) {
-          idFoto = t.foto.split("/d/")[1].split("/")[0];
-      }
-
-      const urlFinal = idFoto 
-        ? `https://lh3.googleusercontent.com/d/${idFoto}` 
-        : "https://www.w3schools.com/howto/img_avatar.png";
-
-      const card = document.createElement('div');
-      card.className = 'review-card';
-
-      card.innerHTML = `
-        <img src="${urlFinal}" alt="Paciente" class="review-photo">
-        <div class="review-stars">★★★★★</div>
-        <p class="review-text">"${t.texto || ''}"</p>
-        <div class="review-name">${t.nombre || 'Paciente'}</div>
-        <div style="margin-top: 10px; font-size: 0.8rem; color: #888;">
-          ${t.fecha ? new Date(t.fecha).toLocaleDateString() : ''}
-        </div>
-      `;
-      container.appendChild(card);
-    });
-
-  } catch (error) {
-    console.error("Error cargando datos:", error);
-    container.innerHTML = "<p>Error al cargar los testimonios. Por favor revisa la conexión.</p>";
-  }
+    border: 1.5px solid rgba(255,255,255,0.55);
+    border-radius: 20px;
+    padding: 26px 20px;
+    box-shadow: 0 10px 26px rgba(0,0,0,0.18);
+    transition: 0.35s ease;
+    overflow: hidden;
+    text-align: center; /* Centramos el contenido */
 }
 
-  window.onload = cargarTestimonios;
+.review-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 36px rgba(0,0,0,0.28);
+}
+
+/* --- FOTO RECTANGULAR --- */
+.review-photo {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 3px solid white;
+    margin-bottom: 15px;
+    background-color: #eee;
+}
+
+.review-stars {
+    font-size: 1.2rem;
+    color: #ffcc00;
+    margin-bottom: 10px;
+}
+
+.review-text {
+    font-size: 0.95rem;
+    color: #003366;
+    margin-bottom: 12px;
+    line-height: 1.4;
+    font-style: italic;
+}
+
+.review-name {
+    font-weight: 700;
+    color: #002a5c;
+    margin-top: 8px;
+    font-family: sans-serif;
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 26px;
+    margin-top: 40px;
+}
+
+/* Estilos para el formulario */
+#formTestimonio {
+    max-width: 500px;
+    margin: 0 auto;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: left;
+}
+#formTestimonio label { display: block; margin-top: 10px; font-weight: bold; }
+#formTestimonio input, #formTestimonio textarea { width: 100%; padding: 8px; margin-top: 5px; border-radius: 5px; border: 1px solid #ccc; }
+.btn-cta { background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top: 15px; width: 100%; }
+</style>
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="brand">ODONTOLOGA: Luz Micaela Rodriguez</div>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="servicios.html">Servicios</a>
+      <a href="equipo.html">Equipo</a>
+      <a href="pacientes.html">Pacientes</a>
+      <a href="blog.html">Blog</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container" style="padding: 40px 20px; text-align: center;">
+
+    <h1>Testimonios de Pacientes</h1>
+    <p>Gracias por compartir tu experiencia con nosotros.</p>
+
+    <section id="formulario">
+      <h2>Dejar un testimonio</h2>
+      <form id="formTestimonio">
+        <label>Nombre y Apellido:</label>
+        <input type="text" id="nombre" required>
+        <label>Testimonio:</label>
+        <textarea id="texto" required></textarea>
+        <label>Foto (opcional):</label>
+        <input type="file" id="foto" accept="image/*">
+        <label style="font-weight: normal; margin-top: 15px;">
+          <input type="checkbox" id="permiso" required> Autorizo el uso de mi testimonio
+        </label>
+        <button type="submit" class="btn-cta">Enviar testimonio</button>
+      </form>
+      <p id="mensaje"></p>
+    </section>
+
+    <hr style="margin: 50px 0; border: 0; border-top: 1px solid #eee;">
+
+    <section class="testimonios-section">
+        <h2>Testimonios aprobados</h2>
+        <div id="listaTestimonios" class="reviews-grid">
+            </div>
+    </section>
+
+</main>
+
+<script>
+(function() {
+    // Tu URL de Google Apps Script
+    var LA_URL_SECRETA = "https://script.google.com/macros/s/AKfycbzXpRyxKYpH9tYsHTst431nMVCWNkiUy98XN06gi6UX_a1UWVNwanT2FxG7csPzttu7/exec";
+
+    async function cargarTestimoniosFinal() {
+        var elDiv = document.getElementById('listaTestimonios');
+        if (!elDiv) return;
+
+        try {
+            // FORZAMOS QUE EL CONTENEDOR SEA VISIBLE
+            elDiv.style.display = "block";
+            elDiv.style.visibility = "visible";
+            elDiv.style.opacity = "1";
+            elDiv.style.minHeight = "500px";
+            elDiv.innerHTML = "<p style='text-align:center; color: #003366;'>Dibujando testimonios en pantalla...</p>";
+
+            var peticion = await fetch(LA_URL_SECRETA + "?v=" + Date.now());
+            var elTextoBruto = await peticion.text();
+            var losDatosLimpios = JSON.parse(elTextoBruto);
+
+            var listaFinal = Array.isArray(losDatosLimpios) ? losDatosLimpios : (losDatosLimpios.data || []);
+            
+            elDiv.innerHTML = ""; // Limpiamos
+
+            for (var m = 0; m < listaFinal.length; m++) {
+                var uno = listaFinal[m];
+                if (!uno.nombre && !uno.texto) continue;
+
+                var linkFoto = "https://www.w3schools.com/howto/img_avatar.png";
+                var match = uno.foto ? uno.foto.match(/id=([a-zA-Z0-9_-]+)/) : null;
+                if (match && match[1]) {
+                    linkFoto = "https://lh3.googleusercontent.com/d/" + match[1];
+                }
+
+                var elementoCard = document.createElement('div');
+                elementoCard.className = "review-card";
+                
+                // --- ESTILOS FORZADOS (Para que se vean sí o sí) ---
+                elementoCard.style.cssText = `
+                    display: inline-block !important;
+                    visibility: visible !important;
+                    opacity: 1 !important;
+                    width: 300px;
+                    margin: 15px;
+                    padding: 25px;
+                    border-radius: 20px;
+                    border: 1px solid #007bff;
+                    background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('img/texturas/agua1.png');
+                    background-size: cover;
+                    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                    vertical-align: top;
+                    text-align: center;
+                `;
+
+                var contenido = "";
+                contenido += '<img src="' + linkFoto + '" style="width:120px; height:120px; border-radius:15px; object-fit:cover; border:3px solid white; margin-bottom:15px;">';
+                contenido += '<div style="color:#ffcc00; font-size:1.2rem; margin-bottom:10px;">★★★★★</div>';
+                contenido += '<p style="color:#003366; font-style:italic; line-height:1.4;">"' + (uno.texto || "") + '"</p>';
+                contenido += '<h4 style="color:#002a5c; margin-top:15px; font-weight:bold;">' + (uno.nombre || "Paciente") + '</h4>';
+                
+                elementoCard.innerHTML = contenido;
+                elDiv.appendChild(elementoCard);
+            }
+            console.log("¡TERMINADO! Si no los ves, revisa si hay un div encima tapándolos.");
+        } catch (e) {
+            console.error("Error:", e);
+            elDiv.innerHTML = "<p>Error al mostrar.</p>";
+        }
+    }
+
+    // Ejecutar al cargar la página
+    window.addEventListener('load', cargarTestimoniosFinal);
+})();
 </script>
-<footer class="site-footer">
-<div class="container">
-<div>© ODONTOLOGA: Luz Micaela Rodriguez</div>
-<div class="muted">+54 93816779663 · luzmicaela789@gmail.com</div>
-</div>
-</footer>
-</body></html>
+
+</body>
+</html>
