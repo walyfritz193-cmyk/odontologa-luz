@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Pacientes — Primeras visitas · ODONTOLOGA: Luz Micaela Rodriguez</title>
+<meta content="Información para pacientes: qué esperar en la primera visita, formularios, seguros y financiación. Odontologos para todos, San Miguel de Tucumán." name="description"/>
+<!-- Material Symbols for icons if photos are missing -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        /* Base styles integrated to remove external dependency */
+        :root {
+            --primary: #003366;
+            --accent: #00c2cb;
+            --text: #2c3e50;
+            --bg: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            color: var(--text);
+            background-color: var(--bg);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .site-header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .site-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            margin: 0 10px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        .btn-cta {
+            background: var(--primary);
+            color: white !important;
+            padding: 8px 18px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: opacity 0.3s;
+        }
+
+        .btn-cta:hover {
+            opacity: 0.9;
+        }
+
+        /* Main Content */
+        main {
+            padding: 40px 20px;
+        }
+
+        h1 { color: var(--primary); font-size: 2.2rem; margin-bottom: 10px; }
+        h2 { color: var(--primary); margin-top: 40px; }
+
+        ul { padding-left: 20px; }
+        li { margin-bottom: 10px; }
+
+        /* Reviews Section */
+        .pacientes-reviews {
+            text-align: center;
+            padding: 60px 0;
+            margin-top: 50px;
+        }
+
+        .reviews-title {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: var(--primary);
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 28px;
+            min-height: 200px;
+            position: relative;
+        }
+
+        /* Glassmorphism Cards */
+        .review-card {
+            position: relative;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1.5px solid rgba(255, 255, 255, 0.6);
+            border-radius: 20px;
+            padding: 30px 20px;
+            box-shadow: 0 10px 26px rgba(0, 51, 102, 0.08);
+            transition: 0.35s ease;
+            overflow: hidden;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .review-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 36px rgba(0, 51, 102, 0.12);
+        }
+
+        .review-photo, .review-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            background-color: #f0f8ff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .review-photo {
+            object-fit: cover;
+            border: 3px solid #ffffff;
+        }
+
+        .review-icon .material-symbols-outlined {
+            font-size: 40px;
+            color: var(--primary);
+        }
+
+        .review-stars {
+            font-size: 1.1rem;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .review-text {
+            font-size: 0.95rem;
+            color: #445566;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .review-name {
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: auto;
+        }
+
+        .review-date {
+            margin-top: 6px;
+            font-size: 0.75rem;
+            color: #94a3b8;
+        }
+
+        /* Shine effect */
+        .review-card::after {
+            content: "";
+            position: absolute;
+            top: -120%;
+            left: -120%;
+            width: 250%;
+            height: 250%;
+            background: linear-gradient(
+                135deg,
+                rgba(255,255,255,0) 40%,
+                rgba(255,255,255,0.4) 50%,
+                rgba(255,255,255,0) 60%
+            );
+            transform: rotate(15deg);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .review-card:hover::after {
+            opacity: 1;
+            animation: shineMove 1.2s ease forwards;
+        }
+
+        @keyframes shineMove {
+            from { transform: translateX(-50%) translateY(-50%) rotate(15deg); }
+            to   { transform: translateX(50%) translateY(50%) rotate(15deg); }
+        }
+
+        /* States UI */
+        .loading-state {
+            grid-column: 1 / -1;
+            padding: 40px;
+            text-align: center;
+            background: rgba(255,255,255,0.5);
+            border-radius: 20px;
+            border: 1px dashed #cbd5e1;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(0, 51, 102, 0.1);
+            border-left-color: var(--primary);
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Footer */
+        .site-footer {
+            background: #fff;
+            padding: 40px 0;
+            margin-top: 60px;
+            border-top: 1px solid #eee;
+            text-align: center;
+        }
+
+        .muted {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .site-header .container { flex-direction: column; gap: 15px; }
+            nav { margin-bottom: 10px; }
+        }
+    </style>
+</head>
+<body>
+<header class="site-header">
+<div class="container">
+<div class="brand">ODONTOLOGA: Luz Micaela Rodriguez</div>
+<nav>
+<a href="index.html">Inicio</a>
+<a href="servicios.html">Servicios</a>
+<a href="equipo.html">Equipo</a>
+<a href="pacientes.html">Pacientes</a>
+<a href="blog.html">Blog</a>
+</nav>
+<a class="btn-cta" href="contacto.html#reserva">Reservar</a>
+</div>
+</header>
+<main class="container">
+<h1>Pacientes / Primeras visitas</h1>
+<p>En tu primera cita realizamos evaluación completa, radiografías si es necesario y entregamos un plan de tratamiento claro.</p>
+<ul>
+<li>Duración aproximada: 45–60 minutos</li>
+<li>Trae tu historial médico y lista de medicamentos</li>
+<li>Aceptamos planes y ofrecemos financiación</li>
+</ul>
+<h2>Formularios</h2>
+<p>Puedes solicitar los formularios en recepción o dejar tu testimonio aquí. Presiona el botón de abajo.</p>
+<div style="text-align:center; margin-top:40px;">
+<a class="btn-cta" href="testimonios.html#formulario" style="
+            padding:14px 26px;
+            background:#0066cc;
+            color:white;
+            border-radius:10px;
+            text-decoration:none;
+            font-weight:600;
+            box-shadow:0 4px 12px rgba(0,0,0,0.2);
+        ">
+            Dejar un testimonio
+        </a>
+</div>
+<section class="pacientes-section" style="margin-top:60px;">
+<h2 class="reviews-title">Pacientes 100% satisfechos</h2>
+<div class="reviews-grid" id="testimoniosPacientes">
+<div class="loading-state">
+<div class="spinner"></div>
+</div>
+</div>
+</section>
+</main>
+<script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzohLBnlfxihfuD0-a6p91oFTEqeyv46FnL_X3FujUSdk8j_u7kDZf-gZLTzTN65vla/exec";
+
+    const PLACEHOLDER_DATA = [
+        { nombre: "María Garcia", texto: "Excelente atención, muy profesional y delicada. Me sentí muy cómoda.", fecha: new Date().toISOString(), foto: "" },
+        { nombre: "Juan Pérez", texto: "La mejor clínica de Tucumán. Equipamiento moderno y trato humano inigualable.", fecha: new Date().toISOString(), foto: "" },
+        { nombre: "Elena Ruiz", texto: "Gracias Dra. Luz por devolverme la sonrisa. El tratamiento fue impecable.", fecha: new Date().toISOString(), foto: "" },
+        { nombre: "Carlos Sosa", texto: "Muy puntuales y claros con el presupuesto. Recomendado 100%.", fecha: new Date().toISOString(), foto: "" }
+    ];
+
+    function renderTestimonios(lista, container) {
+        container.innerHTML = '';
+        
+        // Strict check: if lista is not an array, use placeholders
+        if (!Array.isArray(lista)) {
+            lista = PLACEHOLDER_DATA;
+        }
+
+        if (lista.length === 0) {
+            lista = PLACEHOLDER_DATA;
+        }
+
+        lista.forEach(t => {
+            let idFoto = "";
+            if (t.foto && typeof t.foto === 'string') {
+                if (t.foto.includes("id=")) {
+                    idFoto = t.foto.split("id=")[1].split("&")[0];
+                } else if (t.foto.includes("/d/")) {
+                    idFoto = t.foto.split("/d/")[1].split("/")[0];
+                }
+            }
+
+            const card = document.createElement('div');
+            card.className = 'review-card';
+            
+            let photoHtml = '';
+            if (idFoto) {
+                const urlFinal = `https://lh3.googleusercontent.com/d/${idFoto}`;
+                photoHtml = `<img src="${urlFinal}" alt="Paciente" class="review-photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">`;
+                photoHtml += `<div class="review-icon" style="display:none"><span class="material-symbols-outlined">account_circle</span></div>`;
+            } else {
+                photoHtml = `<div class="review-icon"><span class="material-symbols-outlined">account_circle</span></div>`;
+            }
+
+            card.innerHTML = `
+                ${photoHtml}
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">"${t.texto || 'Excelente servicio'}"</p>
+                <div class="review-name">${t.nombre || 'Paciente'}</div>
+                <div class="review-date">
+                    ${t.fecha ? new Date(t.fecha).toLocaleDateString() : ''}
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    async function cargarTestimonios() {
+        const container = document.getElementById('testimoniosPacientes');
+        if (!container) return;
+
+        try {
+            // Using 'no-cors' mode often returns an opaque response which JSON cannot parse.
+            // We use standard fetch but handle failure by falling back to placeholders.
+            const controller = new AbortController();
+            const id = setTimeout(() => controller.abort(), 4000);
+            
+            const response = await fetch(SCRIPT_URL, { signal: controller.signal });
+            clearTimeout(id);
+
+            if (!response.ok) throw new Error('Response error');
+            
+            const datos = await response.json();
+            let lista = Array.isArray(datos) ? datos : (datos.data || []);
+
+            // Filter approved and sort
+            lista = lista
+                .filter(t => {
+                    if (t.aprobado === undefined) return true;
+                    return t.aprobado === true || t.aprobado === "TRUE" || t.aprobado === "true" || t.aprobado === 1;
+                })
+                .sort((a, b) => new Date(b.fecha || 0) - new Date(a.fecha || 0))
+                .slice(0, 4);
+
+            renderTestimonios(lista, container);
+
+        } catch (error) {
+            console.warn("Using fallback data due to fetch error.", error);
+            renderTestimonios(PLACEHOLDER_DATA, container);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', cargarTestimonios);
+</script>
+<footer class="site-footer">
+<div class="container">
+<div>© ODONTOLOGA: Luz Micaela Rodriguez</div>
+<div class="muted">+54 93816779663 · luzmicaela789@gmail.com</div>
+</div>
+</footer>
+</body></html>
