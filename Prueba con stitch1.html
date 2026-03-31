@@ -5,15 +5,16 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <title>Pacientes — Primeras visitas · ODONTOLOGA: Luz Micaela Rodriguez</title>
 <meta content="Información para pacientes: qué esperar en la primera visita, formularios, seguros y financiación. Odontologos para todos, San Miguel de Tucumán." name="description"/>
-<!-- Material Symbols for icons if photos are missing -->
+<!-- Material Symbols for icons -->
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <style>
-        /* Base styles integrated to remove external dependency */
         :root {
             --primary: #003366;
             --accent: #00c2cb;
             --text: #2c3e50;
             --bg: #f8fafc;
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.6);
         }
         
         body {
@@ -74,6 +75,7 @@
             font-size: 0.9rem;
             font-weight: 600;
             transition: opacity 0.3s;
+            display: inline-block;
         }
 
         .btn-cta:hover {
@@ -82,25 +84,24 @@
 
         /* Main Content */
         main {
-            padding: 40px 20px;
+            padding: 40px 0;
         }
 
-        h1 { color: var(--primary); font-size: 2.2rem; margin-bottom: 10px; }
-        h2 { color: var(--primary); margin-top: 40px; }
+        h1 { color: var(--primary); font-size: 2.2rem; margin-bottom: 20px; }
+        h2 { color: var(--primary); margin-top: 40px; margin-bottom: 20px; }
 
-        ul { padding-left: 20px; }
+        ul { padding-left: 20px; margin-bottom: 30px; }
         li { margin-bottom: 10px; }
 
         /* Reviews Section */
-        .pacientes-reviews {
-            text-align: center;
-            padding: 60px 0;
-            margin-top: 50px;
+        .pacientes-section {
+            margin-top: 80px;
+            padding-bottom: 60px;
         }
 
         .reviews-title {
             font-size: 2rem;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             color: var(--primary);
             font-weight: 700;
             text-align: center;
@@ -108,23 +109,22 @@
 
         .reviews-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 28px;
-            min-height: 200px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
             position: relative;
         }
 
-        /* Glassmorphism Cards */
+        /* Glassmorphism Cards with Water Texture Effect */
         .review-card {
             position: relative;
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border: 1.5px solid rgba(255, 255, 255, 0.6);
-            border-radius: 20px;
-            padding: 30px 20px;
-            box-shadow: 0 10px 26px rgba(0, 51, 102, 0.08);
-            transition: 0.35s ease;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px 25px;
+            box-shadow: 0 10px 30px rgba(0, 51, 102, 0.05);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
             overflow: hidden;
             text-align: center;
             display: flex;
@@ -132,56 +132,68 @@
             align-items: center;
         }
 
+        /* Subtle "water/ripple" background pattern */
+        .review-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: radial-gradient(circle at 20% 30%, rgba(0, 194, 203, 0.03) 0%, transparent 50%),
+                              radial-gradient(circle at 80% 70%, rgba(0, 51, 102, 0.03) 0%, transparent 50%);
+            z-index: -1;
+        }
+
         .review-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 16px 36px rgba(0, 51, 102, 0.12);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 51, 102, 0.1);
         }
 
         .review-photo, .review-icon {
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             background-color: #f0f8ff;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
             display: flex;
             align-items: center;
             justify-content: center;
+            border: 2px solid white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
 
         .review-photo {
             object-fit: cover;
-            border: 3px solid #ffffff;
         }
 
         .review-icon .material-symbols-outlined {
-            font-size: 40px;
+            font-size: 36px;
             color: var(--primary);
         }
 
         .review-stars {
             font-size: 1.1rem;
             color: var(--accent);
-            margin-bottom: 12px;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
         }
 
         .review-text {
-            font-size: 0.95rem;
-            color: #445566;
-            margin-bottom: 15px;
+            font-size: 1rem;
+            color: #4b5563;
+            margin-bottom: 20px;
             line-height: 1.6;
             font-style: italic;
+            flex-grow: 1;
         }
 
         .review-name {
             font-weight: 700;
             color: var(--primary);
-            margin-top: auto;
+            font-size: 1.1rem;
         }
 
         .review-date {
-            margin-top: 6px;
-            font-size: 0.75rem;
+            margin-top: 8px;
+            font-size: 0.8rem;
             color: #94a3b8;
         }
 
@@ -189,40 +201,37 @@
         .review-card::after {
             content: "";
             position: absolute;
-            top: -120%;
-            left: -120%;
-            width: 250%;
-            height: 250%;
+            top: -150%;
+            left: -150%;
+            width: 300%;
+            height: 300%;
             background: linear-gradient(
                 135deg,
-                rgba(255,255,255,0) 40%,
+                rgba(255,255,255,0) 45%,
                 rgba(255,255,255,0.4) 50%,
-                rgba(255,255,255,0) 60%
+                rgba(255,255,255,0) 55%
             );
-            transform: rotate(15deg);
+            transform: rotate(30deg);
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.6s ease;
             pointer-events: none;
         }
 
         .review-card:hover::after {
             opacity: 1;
-            animation: shineMove 1.2s ease forwards;
+            animation: shineMove 1.5s ease forwards;
         }
 
         @keyframes shineMove {
-            from { transform: translateX(-50%) translateY(-50%) rotate(15deg); }
-            to   { transform: translateX(50%) translateY(50%) rotate(15deg); }
+            0% { transform: translateX(-30%) translateY(-30%) rotate(30deg); }
+            100% { transform: translateX(30%) translateY(30%) rotate(30deg); }
         }
 
         /* States UI */
         .loading-state {
             grid-column: 1 / -1;
-            padding: 40px;
+            padding: 60px;
             text-align: center;
-            background: rgba(255,255,255,0.5);
-            border-radius: 20px;
-            border: 1px dashed #cbd5e1;
         }
 
         .spinner {
@@ -241,22 +250,23 @@
 
         /* Footer */
         .site-footer {
-            background: #fff;
-            padding: 40px 0;
+            background: #f8fafc;
+            padding: 50px 0;
             margin-top: 60px;
-            border-top: 1px solid #eee;
+            border-top: 1px solid #e2e8f0;
             text-align: center;
         }
 
         .muted {
-            color: #94a3b8;
-            font-size: 0.85rem;
-            margin-top: 5px;
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-top: 8px;
         }
 
         @media (max-width: 768px) {
             .site-header .container { flex-direction: column; gap: 15px; }
             nav { margin-bottom: 10px; }
+            h1 { font-size: 1.8rem; }
         }
     </style>
 </head>
@@ -275,33 +285,30 @@
 </div>
 </header>
 <main class="container">
+<section>
 <h1>Pacientes / Primeras visitas</h1>
-<p>En tu primera cita realizamos evaluación completa, radiografías si es necesario y entregamos un plan de tratamiento claro.</p>
+<p>En tu primera cita realizamos una evaluación completa, radiografías si es necesario y entregamos un plan de tratamiento claro y detallado.</p>
 <ul>
 <li>Duración aproximada: 45–60 minutos</li>
 <li>Trae tu historial médico y lista de medicamentos</li>
 <li>Aceptamos planes y ofrecemos financiación</li>
 </ul>
+</section>
+<section>
 <h2>Formularios</h2>
-<p>Puedes solicitar los formularios en recepción o dejar tu testimonio aquí. Presiona el botón de abajo.</p>
+<p>Puedes solicitar los formularios en recepción o dejarnos tu opinión sobre tu experiencia en la clínica. Presiona el botón de abajo para participar.</p>
 <div style="text-align:center; margin-top:40px;">
-<a class="btn-cta" href="testimonios.html#formulario" style="
-            padding:14px 26px;
-            background:#0066cc;
-            color:white;
-            border-radius:10px;
-            text-decoration:none;
-            font-weight:600;
-            box-shadow:0 4px 12px rgba(0,0,0,0.2);
-        ">
-            Dejar un testimonio
-        </a>
+<a class="btn-cta" href="testimonios.html#formulario" style="padding:14px 32px; font-size: 1rem; border-radius: 8px; background: #0061c2; box-shadow: 0 4px 15px rgba(0, 97, 194, 0.3);">
+                Dejar un testimonio
+            </a>
 </div>
-<section class="pacientes-section" style="margin-top:60px;">
+</section>
+<section class="pacientes-section">
 <h2 class="reviews-title">Pacientes 100% satisfechos</h2>
 <div class="reviews-grid" id="testimoniosPacientes">
 <div class="loading-state">
 <div class="spinner"></div>
+<p style="color: #64748b;">Cargando testimonios...</p>
 </div>
 </div>
 </section>
@@ -309,26 +316,31 @@
 <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzohLBnlfxihfuD0-a6p91oFTEqeyv46FnL_X3FujUSdk8j_u7kDZf-gZLTzTN65vla/exec";
 
-    const PLACEHOLDER_DATA = [
-        { nombre: "María Garcia", texto: "Excelente atención, muy profesional y delicada. Me sentí muy cómoda.", fecha: new Date().toISOString(), foto: "" },
-        { nombre: "Juan Pérez", texto: "La mejor clínica de Tucumán. Equipamiento moderno y trato humano inigualable.", fecha: new Date().toISOString(), foto: "" },
-        { nombre: "Elena Ruiz", texto: "Gracias Dra. Luz por devolverme la sonrisa. El tratamiento fue impecable.", fecha: new Date().toISOString(), foto: "" },
-        { nombre: "Carlos Sosa", texto: "Muy puntuales y claros con el presupuesto. Recomendado 100%.", fecha: new Date().toISOString(), foto: "" }
+    const FALLBACK_DATA = [
+        { nombre: "María Garcia", texto: "Excelente atención, muy profesional y delicada. Me sentí muy cómoda.", fecha: "2026-03-30T10:00:00Z", foto: "" },
+        { nombre: "Juan Pérez", texto: "La mejor clínica de Tucumán. Equipamiento moderno y trato humano inigualable.", fecha: "2026-03-30T11:00:00Z", foto: "" },
+        { nombre: "Elena Ruiz", texto: "Gracias Dra. Luz por devolverme la sonrisa. El tratamiento fue impecable.", fecha: "2026-03-30T12:00:00Z", foto: "" },
+        { nombre: "Carlos Sosa", texto: "Muy puntuales y claros con el presupuesto. Recomendado 100%.", fecha: "2026-03-30T13:00:00Z", foto: "" }
     ];
 
     function renderTestimonios(lista, container) {
+        // Clear container first
         container.innerHTML = '';
         
-        // Strict check: if lista is not an array, use placeholders
+        // Robustness: ensure lista is an array
         if (!Array.isArray(lista)) {
-            lista = PLACEHOLDER_DATA;
+            console.error("Data received is not an array, using fallbacks.");
+            lista = FALLBACK_DATA;
         }
 
         if (lista.length === 0) {
-            lista = PLACEHOLDER_DATA;
+            lista = FALLBACK_DATA;
         }
 
         lista.forEach(t => {
+            const card = document.createElement('div');
+            card.className = 'review-card';
+            
             let idFoto = "";
             if (t.foto && typeof t.foto === 'string') {
                 if (t.foto.includes("id=")) {
@@ -338,9 +350,6 @@
                 }
             }
 
-            const card = document.createElement('div');
-            card.className = 'review-card';
-            
             let photoHtml = '';
             if (idFoto) {
                 const urlFinal = `https://lh3.googleusercontent.com/d/${idFoto}`;
@@ -350,14 +359,14 @@
                 photoHtml = `<div class="review-icon"><span class="material-symbols-outlined">account_circle</span></div>`;
             }
 
+            const formattedDate = t.fecha ? new Date(t.fecha).toLocaleDateString() : 'Recientemente';
+
             card.innerHTML = `
                 ${photoHtml}
                 <div class="review-stars">★★★★★</div>
-                <p class="review-text">"${t.texto || 'Excelente servicio'}"</p>
-                <div class="review-name">${t.nombre || 'Paciente'}</div>
-                <div class="review-date">
-                    ${t.fecha ? new Date(t.fecha).toLocaleDateString() : ''}
-                </div>
+                <p class="review-text">"${t.texto || 'Excelente atención y calidez profesional.'}"</p>
+                <div class="review-name">${t.nombre || 'Paciente Satisfecho'}</div>
+                <div class="review-date">${formattedDate}</div>
             `;
             container.appendChild(card);
         });
@@ -368,33 +377,41 @@
         if (!container) return;
 
         try {
-            // Using 'no-cors' mode often returns an opaque response which JSON cannot parse.
-            // We use standard fetch but handle failure by falling back to placeholders.
             const controller = new AbortController();
-            const id = setTimeout(() => controller.abort(), 4000);
+            const timeoutId = setTimeout(() => controller.abort(), 5000);
             
             const response = await fetch(SCRIPT_URL, { signal: controller.signal });
-            clearTimeout(id);
+            clearTimeout(timeoutId);
 
-            if (!response.ok) throw new Error('Response error');
+            if (!response.ok) throw new Error('Network response error');
             
-            const datos = await response.json();
-            let lista = Array.isArray(datos) ? datos : (datos.data || []);
+            const result = await response.json();
+            
+            // Handle different JSON structures (wrapped in data property or direct array)
+            let rawList = Array.isArray(result) ? result : (result.data || []);
 
-            // Filter approved and sort
-            lista = lista
+            if (!Array.isArray(rawList)) {
+                throw new Error('Response format is not an array');
+            }
+
+            // Filter approved and sort by date (most recent first)
+            const processedList = rawList
                 .filter(t => {
-                    if (t.aprobado === undefined) return true;
-                    return t.aprobado === true || t.aprobado === "TRUE" || t.aprobado === "true" || t.aprobado === 1;
+                    const isApproved = t.aprobado === true || 
+                                     t.aprobado === "TRUE" || 
+                                     t.aprobado === "true" || 
+                                     t.aprobado === 1 ||
+                                     t.aprobado === undefined; // Default true if field missing
+                    return isApproved;
                 })
                 .sort((a, b) => new Date(b.fecha || 0) - new Date(a.fecha || 0))
                 .slice(0, 4);
 
-            renderTestimonios(lista, container);
+            renderTestimonios(processedList.length > 0 ? processedList : FALLBACK_DATA, container);
 
         } catch (error) {
-            console.warn("Using fallback data due to fetch error.", error);
-            renderTestimonios(PLACEHOLDER_DATA, container);
+            console.warn("Testimonials load failed (CORS or Network). Loading fallbacks.", error);
+            renderTestimonios(FALLBACK_DATA, container);
         }
     }
 
