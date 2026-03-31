@@ -4,9 +4,71 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Dejar un Testimonio - Ethereal Clinic</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries">
+      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzhFIH6e9YgewoV4PyV3TCBD70vqQiU6UnJ1da_z7pFs7rk484j-WIDSU23sIcxmVdV/exec';
+
+      // Handle Form Submission
+      document.getElementById('testimonyForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const submitBtn = document.getElementById('submitBtn');
+        const originalBtnContent = submitBtn.innerHTML;
+        
+        // Loading state
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>Enviando...</span><span class="material-symbols-outlined animate-spin">sync</span>';
+
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData.entries());
+
+        try {
+          // Google Apps Script usually needs no-cors for simple POST requests from external domains 
+          // to avoid complex preflight checks when it returns a 302 redirect.
+          await fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          });
+
+          // Show success modal (we assume success since no-cors doesn't give us the response body)
+          document.getElementById('successModal').classList.remove('hidden');
+          document.getElementById('successModal').classList.add('flex');
+          e.target.reset();
+        } catch (error) {
+          console.error('Error submitting testimony:', error);
+          alert('Hubo un error al enviar tu testimonio. Por favor intenta de nuevo.');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnContent;
+        }
+      });
+
+      // Function to fetch and display testimonials
+      async function fetchTestimonials() {
+        try {
+          const response = await fetch(SCRIPT_URL);
+          if (!response.ok) throw new Error('Network response was not ok');
+          
+          const datos = await response.json();
+          
+          // Check if data is an array before processing to avoid forEach errors
+          if (Array.isArray(datos) && datos.length > 0) {
+            const grid = document.getElementById('testimoniesGrid');
+            // Logic to update the grid would go here
+            console.log('Testimonials loaded successfully:', datos);
+          }
+        } catch (error) {
+          console.warn('Could not fetch external testimonials (CORS or network). Keeping fallback samples.', error);
+          // Fallback samples are already in the HTML, so the UI stays complete
+        }
+      }
+
+      // Initialize fetching on load
+      fetchTestimonials(); 
+    </script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <!-- Tailwind Configuration -->
 <script id="tailwind-config">
@@ -74,19 +136,21 @@
         },
       }
     </script>
-<style>.material-symbols-outlined {
-    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24
-    }
-.glass-card {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px)
-    }
-.water-bg {
-    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuBT07ku_PbR6-gYSuSKqMe81u7RfsdaMWjWXPfJi-bsntgkkJn9rTfgqVr5uGfkt-nVpFCJx2ITOGNqVgWHJ2qptlLqlCia91rlZuwDR-EdL0hnJ3Lsv_nZeZH40aNh8qyq0cIUBzlQ5LctsVfjZlF-8y50jZ5oCMk06g7JcSCX5X9uvktRmXJyKBq2Ao4hXqkIK6aotgemxPEPK1_XR53WA-DE15JpMkNOITsRdf1E4iTJqyzkgpPIwitUHa1l8D-A-dPwIqvSvMKH);
-    background-size: cover;
-    background-attachment: fixed
-    }</style>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px)
+      }
+      .water-bg {
+        background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuBT07ku_PbR6-gYSuSKqMe81u7RfsdaMWjWXPfJi-bsntgkkJn9rTfgqVr5uGfkt-nVpFCJx2ITOGNqVgWHJ2qptlLqlCia91rlZuwDR-EdL0hnJ3Lsv_nZeZH40aNh8qyq0cIUBzlQ5LctsVfjZlF-8y50jZ5oCMk06g7JcSCX5X9uvktRmXJyKBq2Ao4hXqkIK6aotgemxPEPK1_XR53WA-DE15JpMkNOITsRdf1E4iTJqyzkgpPIwitUHa1l8D-A-dPwIqvSvMKH);
+        background-size: cover;
+        background-attachment: fixed
+      }
+    </style>
 </head>
 <body class="bg-surface font-body text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed">
 <!-- TopNavBar -->
@@ -165,14 +229,14 @@
 </div>
 <p class="text-on-surface-variant font-medium">Recientemente compartidos</p>
 </div>
-<!-- Testimonies Grid (Preview) -->
+<!-- Testimonies Grid -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="testimoniesGrid">
-<!-- Cards will be injected here via script logic or static placeholder -->
+<!-- Cards will be injected here via script or remain as fallback placeholders -->
 <!-- Static Placeholder 1 -->
-<div class="bg-surface-container-lowest rounded-lg p-8 shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-surface-container">
+<div class="bg-surface-container-lowest rounded-lg p-8 shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-surface-container testimonial-card">
 <div class="flex items-center gap-4 mb-6">
 <div class="w-14 h-14 rounded-full bg-surface-container-high overflow-hidden">
-<img class="w-full h-full object-cover" data-alt="portrait of a smiling woman with healthy teeth in a professional setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEcbzBra9crzsGQwnnXM5FDuddgMX1iuWqj2QhBn34R46_OYto4jUIPSf9BVAdb8bmLyOGi0IwzWFByvFNT97-yKKyDTkpH9jlS-jdeqwk9idiUEMLucARqvZU7L58CVdS78WzbkK2JOr8JDAvw-anFnYgPoOmh24WuvvR8HL_eWLDKpGOr5pbyXBam-Fi1qcyH5DG0JQmj5Mj5Cc0v865zXLUsg0hAlZI_85GXO9mmKCiVOmCHnO7A7Tk2m3XIIRnXfdOMc1wl2jJ"/>
+<img alt="Marta Rodriguez" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEcbzBra9crzsGQwnnXM5FDuddgMX1iuWqj2QhBn34R46_OYto4jUIPSf9BVAdb8bmLyOGi0IwzWFByvFNT97-yKKyDTkpH9jlS-jdeqwk9idiUEMLucARqvZU7L58CVdS78WzbkK2JOr8JDAvw-anFnYgPoOmh24WuvvR8HL_eWLDKpGOr5pbyXBam-Fi1qcyH5DG0JQmj5Mj5Cc0v865zXLUsg0hAlZI_85GXO9mmKCiVOmCHnO7A7Tk2m3XIIRnXfdOMc1wl2jJ"/>
 </div>
 <div>
 <h4 class="font-headline font-bold text-on-surface">Marta Rodriguez</h4>
@@ -190,10 +254,10 @@
                         </p>
 </div>
 <!-- Static Placeholder 2 -->
-<div class="bg-surface-container-lowest rounded-lg p-8 shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-surface-container">
+<div class="bg-surface-container-lowest rounded-lg p-8 shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-surface-container testimonial-card">
 <div class="flex items-center gap-4 mb-6">
 <div class="w-14 h-14 rounded-full bg-surface-container-high overflow-hidden">
-<img class="w-full h-full object-cover" data-alt="portrait of a happy middle-aged man with a confident smile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4ReCwP4vDhDwE7mxtTh5BjdDu_PPfr5wXWkq0IHa5DIfFJacXEtIikJFkd_kWgpZtTKtNbnNTaIQXlNmLMYZ2mdG9ghW-a6u9t4_ZF_Z0Wnbm1Ri4LJMsKKQaaeLj5Q3wZYUt7BLTmT8c3eux9RDOfcADTbPNsRgtH8tOLJPNs63wa-b6IbLpSI6IN7ywqrgw3zJ949ac0HNjUBoB83ZnmKXZcw2JUPWAY8qcN29wxOR8YECyzQCvGWdhpBR7M9eLkcwN809H9mSW"/>
+<img alt="Carlos Méndez" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4ReCwP4vDhDwE7mxtTh5BjdDu_PPfr5wXWkq0IHa5DIfFJacXEtIikJFkd_kWgpZtTKtNbnNTaIQXlNmLMYZ2mdG9ghW-a6u9t4_ZF_Z0Wnbm1Ri4LJMsKKQaaeLj5Q3wZYUt7BLTmT8c3eux9RDOfcADTbPNsRgtH8tOLJPNs63wa-b6IbLpSI6IN7ywqrgw3zJ949ac0HNjUBoB83ZnmKXZcw2JUPWAY8qcN29wxOR8YECyzQCvGWdhpBR7M9eLkcwN809H9mSW"/>
 </div>
 <div>
 <h4 class="font-headline font-bold text-on-surface">Carlos Méndez</h4>
@@ -211,10 +275,10 @@
                         </p>
 </div>
 <!-- Static Placeholder 3 -->
-<div class="bg-surface-container-lowest rounded-lg p-8 shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-surface-container">
+<div class="bg-surface-container-lowest rounded-lg p-8 shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-surface-container testimonial-card">
 <div class="flex items-center gap-4 mb-6">
 <div class="w-14 h-14 rounded-full bg-surface-container-high overflow-hidden">
-<img class="w-full h-full object-cover" data-alt="close up of a young man smiling in a bright clinic interior" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCny3ZVu_W8vtho2oh8_K1TjBfHDawizeIxpXKqMLq2XlKiSmGZ1VtrdgYdb7uSZ3WJ8UMqQxGwUfegsWL7Tg8E1ALso79RLGLpKGBbn5WTxgYV2x5ZmiSy6zDjT1_jX6kBidmDl3s0MAqG33RZIftlgWpgsm39ZKgf-PhcRsQfHspT2VhO6L9OA8T_axq_gWcOxeevlAvIz7jJqXSXAEm74W_7LtznEh9Kg-j0cZaBYn3iJzjndC6QefCavfNSM8ykOtkVv0x3m6Mr"/>
+<img alt="Sofía Paz" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCny3ZVu_W8vtho2oh8_K1TjBfHDawizeIxpXKqMLq2XlKiSmGZ1VtrdgYdb7uSZ3WJ8UMqQxGwUfegsWL7Tg8E1ALso79RLGLpKGBbn5WTxgYV2x5ZmiSy6zDjT1_jX6kBidmDl3s0MAqG33RZIftlgWpgsm39ZKgf-PhcRsQfHspT2VhO6L9OA8T_axq_gWcOxeevlAvIz7jJqXSXAEm74W_7LtznEh9Kg-j0cZaBYn3iJzjndC6QefCavfNSM8ykOtkVv0x3m6Mr"/>
 </div>
 <div>
 <h4 class="font-headline font-bold text-on-surface">Sofía Paz</h4>
@@ -254,7 +318,7 @@
 <span class="font-label text-[10px] font-bold uppercase tracking-wider">Turnos</span>
 </a>
 </nav>
-<!-- Success Modal (Hidden by default) -->
+<!-- Success Modal -->
 <div class="fixed inset-0 z-[100] hidden items-center justify-center px-6" id="successModal">
 <div class="absolute inset-0 bg-on-surface/40 backdrop-blur-sm"></div>
 <div class="relative glass-card rounded-lg p-10 max-w-md w-full text-center shadow-2xl border border-white/50">
@@ -269,63 +333,67 @@
 </div>
 </div>
 <script>
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwP31-FoCk6qnL81FNetHz9jD08qCh1Xl-m-k1lhZsR9ioa6iCGVO9KT2syIxdo-TKr/exec';
+      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzhFIH6e9YgewoV4PyV3TCBD70vqQiU6UnJ1da_z7pFs7rk484j-WIDSU23sIcxmVdV/exec';
 
-  // Handle Form Submission
-  document.getElementById('testimonyForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const submitBtn = document.getElementById('submitBtn');
-    const originalBtnContent = submitBtn.innerHTML;
-    
-    // Loading state
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<span>Enviando...</span><span class="material-symbols-outlined animate-spin">sync</span>';
+      // Handle Form Submission
+      document.getElementById('testimonyForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const submitBtn = document.getElementById('submitBtn');
+        const originalBtnContent = submitBtn.innerHTML;
+        
+        // Loading state
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>Enviando...</span><span class="material-symbols-outlined animate-spin">sync</span>';
 
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData.entries());
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData.entries());
 
-    try {
-      const response = await fetch(SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
+        try {
+          // Google Apps Script usually needs no-cors for simple POST requests from external domains 
+          // to avoid complex preflight checks when it returns a 302 redirect.
+          await fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          });
+
+          // Show success modal (we assume success since no-cors doesn't give us the response body)
+          document.getElementById('successModal').classList.remove('hidden');
+          document.getElementById('successModal').classList.add('flex');
+          e.target.reset();
+        } catch (error) {
+          console.error('Error submitting testimony:', error);
+          alert('Hubo un error al enviar tu testimonio. Por favor intenta de nuevo.');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnContent;
+        }
       });
 
-      // Show success modal
-      document.getElementById('successModal').classList.remove('hidden');
-      document.getElementById('successModal').classList.add('flex');
-      e.target.reset();
-    } catch (error) {
-      console.error('Error submitting testimony:', error);
-      alert('Hubo un error al enviar tu testimonio. Por favor intenta de nuevo.');
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = originalBtnContent;
-    }
-  });
-
-  // Function to fetch and display testimonials
-  async function fetchTestimonials() {
-    try {
-      const response = await fetch(SCRIPT_URL);
-      const data = await response.json();
-      
-      if (data && data.length > 0) {
-        const grid = document.getElementById('testimoniesGrid');
-        // Clear existing static placeholders if real data is found
-        // grid.innerHTML = ''; 
-        
-        // Logic to append or replace would go here based on data structure
-        console.log('Testimonials loaded:', data);
+      // Function to fetch and display testimonials
+      async function fetchTestimonials() {
+        try {
+          const response = await fetch(SCRIPT_URL);
+          if (!response.ok) throw new Error('Network response was not ok');
+          
+          const datos = await response.json();
+          
+          // Check if data is an array before processing to avoid forEach errors
+          if (Array.isArray(datos) && datos.length > 0) {
+            const grid = document.getElementById('testimoniesGrid');
+            // Logic to update the grid would go here
+            console.log('Testimonials loaded successfully:', datos);
+          }
+        } catch (error) {
+          console.warn('Could not fetch external testimonials (CORS or network). Keeping fallback samples.', error);
+          // Fallback samples are already in the HTML, so the UI stays complete
+        }
       }
-    } catch (error) {
-      console.error('Error fetching testimonials:', error);
-    }
-  }
 
-  // Initialize fetching on load
-  // fetchTestimonials(); 
-</script></body></html>
+      // Initialize fetching on load
+      fetchTestimonials(); 
+    </script>
+</body></html>

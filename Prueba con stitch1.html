@@ -314,7 +314,7 @@
 </section>
 </main>
 <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwP31-FoCk6qnL81FNetHz9jD08qCh1Xl-m-k1lhZsR9ioa6iCGVO9KT2syIxdo-TKr/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzhFIH6e9YgewoV4PyV3TCBD70vqQiU6UnJ1da_z7pFs7rk484j-WIDSU23sIcxmVdV/exec";
 
     const FALLBACK_DATA = [
         { nombre: "María Garcia", texto: "Excelente atención, muy profesional y delicada. Me sentí muy cómoda.", fecha: "2026-03-30T10:00:00Z", foto: "" },
@@ -378,15 +378,22 @@
 
         try {
             const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 5000);
+            const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 second timeout
             
             const response = await fetch(SCRIPT_URL, {
+                method: 'GET',
                 mode: 'cors',
+                cache: 'no-cache',
+                headers: {
+                    'Content-Type': 'text/plain;charset=utf-8',
+                },
                 signal: controller.signal 
             });
             clearTimeout(timeoutId);
 
-            if (!response.ok) throw new Error('Network response error');
+            if (!response.ok) {
+                throw new Error(`HTTP Error: ${response.status}`);
+            }
             
             const result = await response.json();
             
@@ -400,6 +407,7 @@
             // Filter approved and sort by date (most recent first)
             const processedList = rawList
                 .filter(t => {
+                    if (!t) return false;
                     const isApproved = t.aprobado === true || 
                                      t.aprobado === "TRUE" || 
                                      t.aprobado === "true" || 
@@ -413,7 +421,7 @@
             renderTestimonios(processedList.length > 0 ? processedList : FALLBACK_DATA, container);
 
         } catch (error) {
-            console.warn("Testimonials load failed (CORS or Network). Loading fallbacks.", error);
+            console.error("Testimonials load failed (CORS, Network or Format error). Loading fallbacks.", error);
             renderTestimonios(FALLBACK_DATA, container);
         }
     }
