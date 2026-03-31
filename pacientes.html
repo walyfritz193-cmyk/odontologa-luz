@@ -1,400 +1,256 @@
-<!DOCTYPE html>
+﻿<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pacientes — Primeras visitas · ODONTOLOGA: Luz Micaela Rodriguez</title>
+  <meta name="description" content="Información para pacientes: qué esperar en la primera visita, formularios, seguros y financiación. Odontologos para todos, San Miguel de Tucumán." />
+  <link rel="icon" href="favicon.svg" />
+  <link rel="stylesheet" href="styles.css">
 
-<html lang="es"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width,initial-scale=1" name="viewport"/>
-<title>Pacientes — Primeras visitas · ODONTOLOGA: Luz Micaela Rodriguez</title>
-<meta content="Información para pacientes: qué esperar en la primera visita, formularios, seguros y financiación. Odontologos para todos, San Miguel de Tucumán." name="description"/>
-<style>
-        /* Base styles integrated to remove external dependency */
-        :root {
-            --primary: #003366;
-            --accent: #00c2cb;
-            --text: #2c3e50;
-            --bg: #f8fafc;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            color: var(--text);
-            background-color: var(--bg);
-            line-height: 1.6;
-        }
+  <style>
+    .pacientes-reviews {
+        text-align: center;
+        padding: 60px 20px;
+        margin-top: 50px;
+    }
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+    .reviews-title {
+        font-size: 2rem;
+        margin-bottom: 30px;
+        color: #003366;
+        font-weight: 700;
+    }
 
-        /* Header */
-        .site-header {
-            background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+    .reviews-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 28px;
+    }
 
-        .site-header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    .review-card {
+        position: relative;
+        background:
+            linear-gradient(135deg,
+                rgba(255,255,255,0.55),
+                rgba(255,255,255,0.25)
+            ),
+            url('img/texturas/agua1.png');
+        background-size: 180%;
+        background-position: center;
 
-        .brand {
-            font-weight: 700;
-            color: var(--primary);
-            font-size: 1.1rem;
-        }
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
 
-        nav a {
-            text-decoration: none;
-            color: var(--text);
-            margin: 0 10px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
+        border: 1.5px solid rgba(255,255,255,0.55);
+        border-radius: 20px;
 
-        nav a:hover {
-            color: var(--accent);
-        }
+        padding: 26px 20px;
+        box-shadow: 0 10px 26px rgba(0,0,0,0.18);
+        transition: 0.35s ease;
+        overflow: hidden;
+    }
 
-        .btn-cta {
-            background: var(--primary);
-            color: white !important;
-            padding: 8px 18px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: opacity 0.3s;
-        }
+    .review-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 16px 36px rgba(0,0,0,0.28);
+        background-size: 200%;
+    }
 
-        .btn-cta:hover {
-            opacity: 0.9;
-        }
+    .review-photo {
+        width: 100px;
+        height: 160px;
+        object-fit: cover;
+        border-radius: 10px;
+        border: 2px solid white;
+        margin-bottom: 12px;
+        background-color: #f0f0f0;
+    }
 
-        /* Main Content */
-        main {
-            padding: 40px 20px;
-        }
+    .review-stars {
+        font-size: 1.2rem;
+        color: #ffcc00;
+        margin-bottom: 10px;
+    }
 
-        h1 { color: var(--primary); font-size: 2.2rem; margin-bottom: 10px; }
-        h2 { color: var(--primary); margin-top: 40px; }
+    .review-text {
+        font-size: 0.95rem;
+        color: #003366;
+        margin-bottom: 12px;
+        line-height: 1.4;
+    }
 
-        ul { padding-left: 20px; }
-        li { margin-bottom: 10px; }
+    .review-name {
+        font-weight: 700;
+        color: #002a5c;
+        margin-top: 8px;
+    }
 
-        /* Reviews Section */
-        .pacientes-reviews {
-            text-align: center;
-            padding: 60px 0;
-            margin-top: 50px;
-        }
+    .review-card::after {
+        content: "";
+        position: absolute;
+        top: -120%;
+        left: -120%;
+        width: 250%;
+        height: 250%;
+        background: linear-gradient(
+            135deg,
+            rgba(255,255,255,0) 40%,
+            rgba(255,255,255,0.35) 50%,
+            rgba(255,255,255,0) 60%
+        );
+        transform: rotate(15deg);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
 
-        .reviews-title {
-            font-size: 2rem;
-            margin-bottom: 40px;
-            color: var(--primary);
-            font-weight: 700;
-            text-align: center;
-        }
+    .review-card:hover::after {
+        opacity: 1;
+        animation: shineMove 1.2s ease forwards;
+    }
 
-        .reviews-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 28px;
-            min-height: 200px;
-            position: relative;
-        }
-
-        /* Glassmorphism Cards */
-        .review-card {
-            position: relative;
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border: 1.5px solid rgba(255, 255, 255, 0.6);
-            border-radius: 20px;
-            padding: 30px 20px;
-            box-shadow: 0 10px 26px rgba(0, 51, 102, 0.08);
-            transition: 0.35s ease;
-            overflow: hidden;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .review-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 16px 36px rgba(0, 51, 102, 0.12);
-        }
-
-        .review-photo {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 3px solid #ffffff;
-            margin-bottom: 15px;
-            background-color: #f0f8ff;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-
-        .review-stars {
-            font-size: 1.1rem;
-            color: var(--accent);
-            margin-bottom: 12px;
-        }
-
-        .review-text {
-            font-size: 0.95rem;
-            color: #445566;
-            margin-bottom: 15px;
-            line-height: 1.6;
-            font-style: italic;
-        }
-
-        .review-name {
-            font-weight: 700;
-            color: var(--primary);
-            margin-top: auto;
-        }
-
-        .review-date {
-            margin-top: 6px;
-            font-size: 0.75rem;
-            color: #94a3b8;
-        }
-
-        /* Shine effect */
-        .review-card::after {
-            content: "";
-            position: absolute;
-            top: -120%;
-            left: -120%;
-            width: 250%;
-            height: 250%;
-            background: linear-gradient(
-                135deg,
-                rgba(255,255,255,0) 40%,
-                rgba(255,255,255,0.4) 50%,
-                rgba(255,255,255,0) 60%
-            );
-            transform: rotate(15deg);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
-        }
-
-        .review-card:hover::after {
-            opacity: 1;
-            animation: shineMove 1.2s ease forwards;
-        }
-
-        @keyframes shineMove {
-            from { transform: translateX(-50%) translateY(-50%) rotate(15deg); }
-            to   { transform: translateX(50%) translateY(50%) rotate(15deg); }
-        }
-
-        /* States UI */
-        .loading-state, .error-state {
-            grid-column: 1 / -1;
-            padding: 40px;
-            text-align: center;
-            background: rgba(255,255,255,0.5);
-            border-radius: 20px;
-            border: 1px dashed #cbd5e1;
-        }
-
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid rgba(0, 51, 102, 0.1);
-            border-left-color: var(--primary);
-            border-radius: 50%;
-            margin: 0 auto 15px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Footer */
-        .site-footer {
-            background: #fff;
-            padding: 40px 0;
-            margin-top: 60px;
-            border-top: 1px solid #eee;
-            text-align: center;
-        }
-
-        .muted {
-            color: #94a3b8;
-            font-size: 0.85rem;
-            margin-top: 5px;
-        }
-
-        @media (max-width: 768px) {
-            .site-header .container { flex-direction: column; gap: 15px; }
-            nav { margin-bottom: 10px; }
-        }
-    </style>
+    @keyframes shineMove {
+        from { transform: translateX(-50%) translateY(-50%) rotate(15deg); }
+        to   { transform: translateX(50%) translateY(50%) rotate(15deg); }
+    }
+  </style>
 </head>
+
 <body>
 <header class="site-header">
-<div class="container">
-<div class="brand">ODONTOLOGA: Luz Micaela Rodriguez</div>
-<nav>
-<a href="index.html">Inicio</a>
-<a href="servicios.html">Servicios</a>
-<a href="equipo.html">Equipo</a>
-<a href="pacientes.html">Pacientes</a>
-<a href="blog.html">Blog</a>
-</nav>
-<a class="btn-cta" href="contacto.html#reserva">Reservar</a>
-</div>
+  <div class="container">
+    <div class="brand">OODONTOLOGA: Luz Micaela Rodriguez</div>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="servicios.html">Servicios</a>
+      <a href="equipo.html">Equipo</a>
+      <a href="pacientes.html">Pacientes</a>
+      <a href="blog.html">Blog</a>
+    </nav>
+    <a class="btn-cta" href="contacto.html#reserva">Reservar</a>
+  </div>
 </header>
+
 <main class="container">
-<h1>Pacientes / Primeras visitas</h1>
-<p>En tu primera cita realizamos evaluación completa, radiografías si es necesario y entregamos un plan de tratamiento claro.</p>
-<ul>
-<li>Duración aproximada: 45–60 minutos</li>
-<li>Trae tu historial médico y lista de medicamentos</li>
-<li>Aceptamos planes y ofrecemos financiación</li>
-</ul>
-<h2>Formularios</h2>
-<p>Puedes solicitar los formularios en recepción o dejar tu testimonio aquí. Presiona el botón de abajo.</p>
+  <h1>Pacientes / Primeras visitas</h1>
+  <p>En tu primera cita realizamos evaluación completa, radiografías si es necesario y entregamos un plan de tratamiento claro.</p>
+
+  <ul>
+    <li>Duración aproximada: 45–60 minutos</li>
+    <li>Trae tu historial médico y lista de medicamentos</li>
+    <li>Aceptamos planes y ofrecemos financiación</li>
+  </ul>
+
+  <h2>Formularios</h2>
+  <p>Puedes solicitar el formularios en recepción o dejar tu testimono aqui. Presiona el boton de abajo. </p>
+
 <div style="text-align:center; margin-top:40px;">
-<a class="btn-cta" href="testimonios.html#formulario" style="
-            padding:14px 26px;
-            background:#0066cc;
-            color:white;
-            border-radius:10px;
-            text-decoration:none;
-            font-weight:600;
-            box-shadow:0 4px 12px rgba(0,0,0,0.2);
-        ">
-            Dejar un testimonio
-        </a>
+  <a href="testimonios.html#formulario" class="btn-cta" style="
+      padding:14px 26px;
+      background:#0066cc;
+      color:white;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:600;
+      box-shadow:0 4px 12px rgba(0,0,0,0.2);
+  ">
+    Dejar un testimonio
+  </a>
 </div>
-<section class="pacientes-section" style="margin-top:60px;">
-<h2 class="reviews-title">Pacientes 100% satisfechos</h2>
-<div class="reviews-grid" id="testimoniosPacientes">
-<!-- UI State: Loading by default -->
-<div class="loading-state">
-<div class="spinner"></div>
-<p>Cargando experiencias de pacientes...</p>
-</div>
-</div>
+
+<section class="pacientes-section" style="margin-top:50px;">
+
+    <h2 class="titulo-seccion">Pacientes 100% satisfechos</h2>
+
+    <!-- Contenedor dinámico (vacío al inicio) -->
+    <div id="testimoniosPacientes" class="reviews-grid" style="margin-top:40px;"></div>
+
+
 </section>
+
+
+ 
 </main>
-<script>
-    /**
-     * NOTA SOBRE CORS: Si abres este archivo localmente (file://), el navegador puede bloquear 
-     * la petición fetch a Google Apps Script por políticas de seguridad. 
-     * El script está diseñado para usar datos de respaldo (placeholders) automáticamente si la red falla.
-     */
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzohLBnlfxihfuD0-a6p91oFTEqeyv46FnL_X3FujUSdk8j_u7kDZf-gZLTzTN65vla/exec";
 
-    const PLACEHOLDER_DATA = [
-        { nombre: "María Garcia", texto: "Excelente atención, muy profesional y delicada. Me sentí muy cómoda.", fecha: new Date().toISOString(), foto: "" },
-        { nombre: "Juan Pérez", texto: "La mejor clínica de Tucumán. Equipamiento moderno y trato humano inigualable.", fecha: new Date().toISOString(), foto: "" },
-        { nombre: "Elena Ruiz", texto: "Gracias Dra. Luz por devolverme la sonrisa. El tratamiento fue impecable.", fecha: new Date().toISOString(), foto: "" },
-        { nombre: "Carlos Sosa", texto: "Muy puntuales y claros con el presupuesto. Recomendado 100%.", fecha: new Date().toISOString(), foto: "" }
-    ];
-
-    function renderTestimonios(lista, container) {
-        // Limpiar contenedor (elimina loading/error states)
-        container.innerHTML = '';
-        
-        if (!lista || lista.length === 0) {
-            container.innerHTML = '<div class="error-state"><p>No hay testimonios disponibles por el momento.</p></div>';
-            return;
-        }
-
-        lista.forEach(t => {
-            let idFoto = "";
-            if (t.foto && typeof t.foto === 'string') {
-                if (t.foto.includes("id=")) {
-                    idFoto = t.foto.split("id=")[1].split("&")[0];
-                } else if (t.foto.includes("/d/")) {
-                    idFoto = t.foto.split("/d/")[1].split("/")[0];
-                }
-            }
-
-            const urlFinal = idFoto 
-                ? `https://lh3.googleusercontent.com/d/${idFoto}` 
-                : "https://www.w3schools.com/howto/img_avatar.png";
-
-            const card = document.createElement('div');
-            card.className = 'review-card';
-            card.innerHTML = `
-                <img src="${urlFinal}" alt="Paciente" class="review-photo" onerror="this.src='https://www.w3schools.com/howto/img_avatar.png'">
-                <div class="review-stars">★★★★★</div>
-                <p class="review-text">"${t.texto || 'Excelente servicio'}"</p>
-                <div class="review-name">${t.nombre || 'Paciente'}</div>
-                <div class="review-date">
-                    ${t.fecha ? new Date(t.fecha).toLocaleDateString() : ''}
-                </div>
-            `;
-            container.appendChild(card);
-        });
-    }
-
-    async function cargarTestimonios() {
-        const container = document.getElementById('testimoniosPacientes');
-        if (!container) return;
-
-        try {
-            // Intentamos fetch con timeout corto
-            const controller = new AbortController();
-            const id = setTimeout(() => controller.abort(), 5000);
-            
-            const response = await fetch(SCRIPT_URL, { signal: controller.signal });
-            clearTimeout(id);
-
-            if (!response.ok) throw new Error('Error en respuesta de red');
-            
-            const datos = await response.json();
-            let lista = Array.isArray(datos) ? datos : (datos.data || []);
-
-            // Filtro: Aprobados, Ordenar por fecha desc, Limitar a 4
-            lista = lista
-                .filter(t => {
-                    // Manejo flexible de valores booleanos de la planilla
-                    if (t.aprobado === undefined) return true;
-                    return t.aprobado === true || t.aprobado === "TRUE" || t.aprobado === "true" || t.aprobado === 1;
-                })
-                .sort((a, b) => new Date(b.fecha || 0) - new Date(a.fecha || 0))
-                .slice(0, 4);
-
-            if (lista.length === 0) {
-                renderTestimonios(PLACEHOLDER_DATA, container);
-            } else {
-                renderTestimonios(lista, container);
-            }
-
-        } catch (error) {
-            console.warn("CORS o Error de Red detectado. Usando datos locales de respaldo.", error);
-            // En caso de fallo (muy común en local o por CORS), mostramos los placeholders para que la web no se vea vacía
-            renderTestimonios(PLACEHOLDER_DATA, container);
-        }
-    }
-
-    // Ejecutar al cargar la página
-    document.addEventListener('DOMContentLoaded', cargarTestimonios);
-</script>
 <footer class="site-footer">
-<div class="container">
-<div>© ODONTOLOGA: Luz Micaela Rodriguez</div>
-<div class="muted">+54 93816779663 · luzmicaela789@gmail.com</div>
-</div>
+  <div class="container">
+    <div>© ODONTOLOGA: Luz Micaela Rodriguez</div>
+    <div class="muted">+54 93816779663 · luzmicaela789@gmail.com</div>
+  </div>
 </footer>
-</body></html>
+
+<script>
+	// Cambia esta parte del script:
+	async function cargarTestimonios() {
+	    const container = document.getElementById('testimoniosPacientes');
+	    if (!container) return;
+	    try {
+	        const controller = new AbortController();
+	        const id = setTimeout(() => controller.abort(), 5000);
+	        const response = await fetch(SCRIPT_URL, { 
+	            signal: controller.signal,
+	            headers: { 'Accept': 'application/json' }
+	        });
+	        clearTimeout(id);
+	        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+	        const datos = await response.json();
+	        console.log("Datos recibidos:", datos); // Para depuración
+	        // Validar datos recibidos
+	        if (!Array.isArray(datos)) {
+	            throw new Error("Formato de datos inválido");
+	        }
+	        // Manejar datos vacíos
+	        if (datos.length === 0) {
+	            container.innerHTML = `
+	                <div class="error-state">
+	                    <p>No hay testimonios disponibles</p>
+	                    <button onclick="cargarTestimonios()" class="btn-cta">Reintentar</button>
+	                </div>
+	            `;
+	            return;
+	        }
+	        renderTestimonios(datos, container);
+	    } catch (error) {
+	        console.error("Error al cargar testimonios:", error);
+	        // Mensaje de error amigable
+	        container.innerHTML = `
+	            <div class="error-state">
+	                <p>No se pudieron cargar los testimonios</p>
+	                <button onclick="cargarTestimonios()" class="btn-cta">Reintentar</button>
+	            </div>
+	        `;
+	    }
+	}
+	// Modifica la función renderTestimonios:
+	function renderTestimonios(lista, container) {
+	    container.innerHTML = '';
+	    lista.forEach(t => {
+	        // Extraer ID de foto de Google Drive
+	        let fotoUrl = "https://www.w3schools.com/howto/img_avatar.png";
+	        if (t.foto) {
+	            const idMatch = t.foto.match(/[-\w]{25,}/);
+	            if (idMatch) {
+	                fotoUrl = `https://drive.google.com/thumbnail?id=${idMatch[0]}&sz=200`;
+	            }
+	        }
+	        const card = document.createElement('div');
+	        card.className = 'review-card';
+	        card.innerHTML = `
+	            <img src="${fotoUrl}" alt="Paciente" class="review-photo" 
+	                 onerror="this.src='https://www.w3schools.com/howto/img_avatar.png'">
+	            <div class="review-stars">★★★★★</div>
+	            <p class="review-text">"${t.texto || 'Testimonio no disponible'}"</p>
+	            <div class="review-name">${t.nombre || 'Anónimo'}</div>
+	            <div class="review-date">${t.fecha || ''}</div>
+	        `;
+	        container.appendChild(card);
+	    });
+	}
+
+cargarTestimoniosPacientes();
+</script>
+
+
+
+</body>
+</html>
